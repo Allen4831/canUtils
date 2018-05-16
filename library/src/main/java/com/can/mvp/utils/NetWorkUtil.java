@@ -12,7 +12,7 @@ import android.net.NetworkInfo;
 public class NetWorkUtil {
 
     public static boolean isNetWork(Context context){
-        ConnectivityManager manager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager)context.getSystemService("connectivity");
         if(manager != null) {
             NetworkInfo network = manager.getActiveNetworkInfo();
             if(network != null && network.isConnectedOrConnecting()) {
