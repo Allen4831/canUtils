@@ -62,7 +62,7 @@ public class VerticalViewPager extends ViewPager {
                 case 1:
                     setAdapter(adapter);
                     handler.removeMessages(2);
-                    handler.sendEmptyMessageDelayed(2,scroll_duration);
+                    handler.sendEmptyMessage(2);
                     break;
                 case 2:
                     handler.removeMessages(2);
