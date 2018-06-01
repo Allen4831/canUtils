@@ -26,7 +26,7 @@ import static com.can.mvp.application.BaseApplication.getActivityManager;
  *         4.view初始化 initView
  *         5.数据初始化 initData
  *         6.点击事件初始化 setClick
- *         7.
+ *         7.onActivityResult : Fragment回调
  */
 
 public class BaseActivity extends AppCompatActivity implements IBaseView,View.OnClickListener{
