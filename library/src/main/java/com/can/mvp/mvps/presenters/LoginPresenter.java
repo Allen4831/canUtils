@@ -2,7 +2,7 @@ package com.can.mvp.mvps.presenters;
 
 import com.can.mvp.base.mvp.IBaseModel;
 import com.can.mvp.base.mvp.IBasePresenter;
-import com.can.mvp.mvps.models.LoginModel;
+import com.can.mvp.mvps.models.BaseModel;
 import com.can.mvp.mvps.views.LoginView;
 
 /**
@@ -11,9 +11,9 @@ import com.can.mvp.mvps.views.LoginView;
 
 public class LoginPresenter implements IBasePresenter.BaseLoginPresenter, IBaseModel.onLoginFinishedListener {
     private LoginView loginView;
-    private LoginModel loginModel;
+    private BaseModel loginModel;
 
-    public LoginPresenter(LoginView loginView, LoginModel loginModel) {
+    public LoginPresenter(LoginView loginView, BaseModel loginModel) {
         this.loginView = loginView;
         this.loginModel = loginModel;
     }

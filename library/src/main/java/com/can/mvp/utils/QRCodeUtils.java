@@ -20,7 +20,7 @@ import java.util.Map;
  * 生成二维码
  */
 
-public class QRCodeUtil {
+public class QRCodeUtils {
 
     /**
      * 根据内容生成二维码

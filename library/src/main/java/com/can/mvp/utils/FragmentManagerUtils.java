@@ -9,19 +9,19 @@ import java.util.Stack;
  * fragment管理工具
  */
 
-public class FragmentManagerUtil {
+public class FragmentManagerUtils {
     private static Stack<BaseFragment> FragmentStack;
-    private static FragmentManagerUtil instance;
+    private static FragmentManagerUtils instance;
 
-    private FragmentManagerUtil() {
+    private FragmentManagerUtils() {
     }
 
     /**
      * 单一实例
      */
-    public static FragmentManagerUtil getInstance() {
+    public static FragmentManagerUtils getInstance() {
         if (instance == null) {
-            instance = new FragmentManagerUtil();
+            instance = new FragmentManagerUtils();
         }
 
         if (FragmentStack == null) {

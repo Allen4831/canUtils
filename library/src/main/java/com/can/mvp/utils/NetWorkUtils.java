@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
  * 网络工具类
  */
 
-public class NetWorkUtil {
+public class NetWorkUtils {
 
     public static boolean isNetWork(Context context){
         ConnectivityManager manager = (ConnectivityManager)context.getSystemService("connectivity");

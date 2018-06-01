@@ -1,7 +1,12 @@
 package com.can.mvp.utils;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Process;
+
+import com.can.mvp.base.BaseActivity;
 
 import java.util.Iterator;
 import java.util.Stack;
@@ -9,16 +14,16 @@ import java.util.Stack;
 /**
  * Activity管理工具类
  */
-public class ActivityManagerUtil {
-    private static Stack<Activity> activityStack;
-    private static ActivityManagerUtil instance;
+public class ActivityManagerUtils {
+    private static Stack<BaseActivity> activityStack;
+    private static ActivityManagerUtils instance;
 
-    private ActivityManagerUtil() {
+    private ActivityManagerUtils() {
     }
 
-    public static ActivityManagerUtil getInstance() {
+    public static ActivityManagerUtils getInstance() {
         if(instance == null) {
-            instance = new ActivityManagerUtil();
+            instance = new ActivityManagerUtils();
         }
         if(activityStack == null) {
             activityStack = new Stack();
@@ -31,7 +36,7 @@ public class ActivityManagerUtil {
         if(activityStack != null) {
             Iterator var1 = activityStack.iterator();
             while(var1.hasNext()) {
-                Activity activity = (Activity)var1.next();
+                BaseActivity activity = (BaseActivity)var1.next();
                 if(activity.getClass().equals(cls)) {
                     return activity;
                 }
@@ -42,24 +47,24 @@ public class ActivityManagerUtil {
     }
 
     //添加Activity
-    public void addActivty(Activity activity) {
+    public void addActivty(BaseActivity activity) {
         activityStack.add(activity);
     }
 
     //当前Activity
-    public Activity currentActivity() {
-        Activity activity = (Activity)activityStack.lastElement();
+    public BaseActivity currentActivity() {
+        BaseActivity activity = activityStack.lastElement();
         return activity;
     }
 
     //结束Activity
     public void finishActivity() {
-        Activity activity = (Activity)activityStack.lastElement();
+        BaseActivity activity = activityStack.lastElement();
         this.finishActivity(activity);
     }
 
     //结束Activity
-    public void finishActivity(Activity activity) {
+    public void finishActivity(BaseActivity activity) {
         if(activity != null && activityStack.contains(activity)) {
             activityStack.remove(activity);
             activity.finish();
@@ -67,7 +72,7 @@ public class ActivityManagerUtil {
     }
 
     //移除Activity
-    public void removeActivity(Activity activity) {
+    public void removeActivity(BaseActivity activity) {
         if(activity != null && activityStack.contains(activity)) {
             activityStack.remove(activity);
         }
@@ -79,7 +84,7 @@ public class ActivityManagerUtil {
         Iterator var2 = activityStack.iterator();
 
         while(var2.hasNext()) {
-            Activity activity = (Activity)var2.next();
+            BaseActivity activity = (BaseActivity)var2.next();
             if(activity.getClass().equals(cls)) {
                 this.finishActivity(activity);
                 break;
@@ -93,7 +98,7 @@ public class ActivityManagerUtil {
         int i = 0;
         for(int size = activityStack.size(); i < size; ++i) {
             if(null != activityStack.get(i)) {
-                this.finishActivity((Activity)activityStack.get(i));
+                this.finishActivity(activityStack.get(i));
             }
         }
         activityStack.clear();
@@ -108,6 +113,32 @@ public class ActivityManagerUtil {
         } catch (Exception var2) {
             ;
         }
-
     }
+
+
+    //打开activity
+    public static void openActivity(Context context, Class<?> tClass, Bundle bundle, int requestCode){
+        Intent intent = new Intent(context,tClass);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if(bundle!=null){
+            intent.putExtras(bundle);
+        }
+        if(requestCode!=0){
+            ((Activity)context).startActivityForResult(intent,requestCode);
+        }else {
+            context.startActivity(intent);
+        }
+    }
+
+    //打开activity
+    public static void openActivity(Context context, Class<?> tClass){
+        openActivity(context,tClass,null,0);
+    }
+
+    //打开activity
+    public static void openActivity(Context context, Class<?> tClass,Bundle bundle){
+        openActivity(context,tClass,bundle,0);
+    }
+
+
 }

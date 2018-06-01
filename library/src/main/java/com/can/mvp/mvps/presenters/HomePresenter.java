@@ -3,7 +3,7 @@ package com.can.mvp.mvps.presenters;
 import com.can.mvp.base.mvp.IBaseModel;
 import com.can.mvp.base.mvp.IBasePresenter;
 import com.can.mvp.bean.responseBean.User;
-import com.can.mvp.mvps.models.HomeModel;
+import com.can.mvp.mvps.models.BaseModel;
 import com.can.mvp.mvps.views.HomeView;
 
 /**
@@ -13,9 +13,9 @@ import com.can.mvp.mvps.views.HomeView;
 public class HomePresenter implements IBasePresenter.BaseHomePresenter, IBaseModel.onGetUserFinishedListener {
 
     private HomeView view;
-    private HomeModel model;
+    private BaseModel model;
 
-    public HomePresenter(HomeView view, HomeModel model){
+    public HomePresenter(HomeView view, BaseModel model){
         this.view = view;
         this.model = model;
     }

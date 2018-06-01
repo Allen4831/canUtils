@@ -7,7 +7,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.can.mvp.base.BaseActivity;
-import com.can.mvp.mvps.models.LoginModel;
+import com.can.mvp.mvps.models.BaseModel;
 import com.can.mvp.mvps.presenters.LoginPresenter;
 import com.can.mvp.mvps.views.LoginView;
 import com.can.mvp.views.BindView;
@@ -35,7 +35,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void initData() {
         super.initData();
-        presenter = new LoginPresenter(this,new LoginModel());
+        presenter = new LoginPresenter(this,new BaseModel());
     }
 
     @Override

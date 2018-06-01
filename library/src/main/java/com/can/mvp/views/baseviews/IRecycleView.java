@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.can.mvp.R;
-import com.can.mvp.utils.NetWorkUtil;
+import com.can.mvp.utils.NetWorkUtils;
 
 /**
  * Created by can on 2018/3/9.
@@ -185,7 +185,7 @@ public class IRecycleView extends SwipeRefreshLayout{
      * 刷新完成后的操作
      */
     public void refreshComlete() {
-        if(NetWorkUtil.isNetWork(getContext())){//网络正常时
+        if(NetWorkUtils.isNetWork(getContext())){//网络正常时
             if(recyclerView.getChildCount()==0){//空数据时
                 setState(DataStateLayout.STATE_NODATA);
             }else {//非空数据时

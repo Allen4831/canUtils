@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.can.canutils.fragment.HomeFragment;
 import com.can.mvp.base.BaseActivity;
 import com.can.mvp.bean.responseBean.User;
-import com.can.mvp.mvps.models.HomeModel;
+import com.can.mvp.mvps.models.BaseModel;
 import com.can.mvp.mvps.presenters.HomePresenter;
 import com.can.mvp.mvps.views.HomeView;
 import com.can.mvp.views.BindView;
@@ -40,7 +40,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
         user.setUserName("多啦B梦");
         user.setUserSex("未知");
 
-        presenter = new HomePresenter(this,new HomeModel());
+        presenter = new HomePresenter(this,new BaseModel());
 
         presenter.getUser(user.getUserName(),user.getUserId());
     }
