@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class BitmapUtils {
 
-    public static String PATH =  "LoveLy";
+    public static String PATH = "LoveLy";
 
     //保存图片到系统相册
     public static boolean saveImageToGallery(Context context, Bitmap bmp) {
@@ -32,7 +32,7 @@ public class BitmapUtils {
         // 首先保存图片
         String storageState = Environment.getExternalStorageState();
         if (storageState.equals(Environment.MEDIA_MOUNTED)) {
-            storePath  = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + PATH;
+            storePath  = Environment.getExternalStorageDirectory() + File.separator + PATH;
             File appDir = new File(storePath);
             if (!appDir.exists()) {
                 appDir.mkdir();
