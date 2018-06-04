@@ -19,6 +19,8 @@ public class NavigationActivity extends BaseActivity {
     private TextView tv_home;
     @BindView(id = R.id.tv_login,click = true)
     private TextView tv_login;
+    @BindView(id = R.id.tv_qrcode,click = true)
+    private TextView tv_qrcode;
 
     @Override
     public int getLayoutId() {
@@ -33,6 +35,9 @@ public class NavigationActivity extends BaseActivity {
                 break;
             case R.id.tv_login://登录
                 ActivityManagerUtils.getInstance().openActivity(this,LoginActivity.class);
+                break;
+            case R.id.tv_qrcode://二维码
+                ActivityManagerUtils.getInstance().openActivity(this,QRCodeActivity.class);
                 break;
 
         }

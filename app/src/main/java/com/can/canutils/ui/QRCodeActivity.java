@@ -1,6 +1,8 @@
 package com.can.canutils.ui;
 
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -71,10 +73,31 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView, SureOrCa
         }
     }
 
+    /**
+     * 检查权限后的回调
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_STORAGE_PERMISSION:
+                if (permissions.length != 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {//失败
+                    Toast.makeText(this,"保存失败，请允许存储权限后再试",Toast.LENGTH_SHORT).show();
+                } else {//成功
+                    presenter.saveImageToGallery(this,mBitmap);
+                }
+                break;
+        }
+    }
+
     @Override
     public void setMyOnClickListener(View view) {
-        if(view.getId()== com.can.mvp.R.id.btn_save)
+        if(view.getId()== com.can.mvp.R.id.btn_save) {
+            if(checkReadPermission())
             presenter.saveImageToGallery(this,mBitmap);
+        }
         dialog.dismiss();
     }
 }

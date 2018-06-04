@@ -15,7 +15,7 @@ public class OtherUtils {
      * @param activity
      */
     public static void closeKeyboard(Activity activity) {
-        InputMethodManager inputMethodManager = (InputMethodManager)activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         if(inputMethodManager != null && activity.getCurrentFocus() != null) {
             inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 2);
         }

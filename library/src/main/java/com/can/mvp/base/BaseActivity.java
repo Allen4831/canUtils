@@ -1,11 +1,15 @@
 package com.can.mvp.base;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -140,5 +144,20 @@ public class BaseActivity extends AppCompatActivity implements IBaseView,View.On
                     callActivityResult(f, requestCode, resultCode, data);
     }
 
+    public static final int REQUEST_STORAGE_PERMISSION = 10111;
+
+    /**
+     * 是否有请求读写权限
+     */
+    public boolean checkReadPermission() {
+        boolean flag = false;
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {//已有权限
+            flag = true;
+        } else {//申请权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
+        }
+        return flag;
+    }
 
 }

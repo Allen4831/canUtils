@@ -32,8 +32,8 @@ android {
         compile 'com.android.support:appcompat-v7:23.3.0'
         testCompile 'junit:junit:4.12'
         //导入RxJava
-        compile 'io.reactivex.rxjava2:rxjava:2.0.1'
-        compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+//        compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+//        compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
         //导入recycleview
         compile 'com.android.support:recyclerview-v7:23.4.0'
         //各种加载中的动画效果
@@ -43,10 +43,10 @@ android {
         //导入kotlin
 //        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 //        compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-        // Retrofit库
-        compile 'com.squareup.okhttp3:okhttp:3.1.2'
         // Okhttp库
-        compile 'com.squareup.retrofit2:retrofit:2.0.2'
+//        compile 'com.squareup.okhttp3:okhttp:3.1.2'
+        // Retrofit库
+//        compile 'com.squareup.retrofit2:retrofit:2.0.2'
         //二维码库
         compile 'com.google.zxing:core:3.2.1'
     }
