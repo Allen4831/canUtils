@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,7 +24,7 @@ public class BitmapUtils {
     public static boolean saveImageToGallery(Context context, Bitmap bmp) {
         boolean isSuccess = false;
         if(bmp==null){
-            Toast.makeText(context,"图片为空，无法保存",Toast.LENGTH_SHORT).show();
+            ToastUtils.getInstance(context).showText("图片为空，无法保存");
             return isSuccess;
         }
         String storePath = "";
@@ -39,7 +38,7 @@ public class BitmapUtils {
             }
         }
         if(StringUtils.isEmpty(storePath)){
-            Toast.makeText(context,"无法保存照片,请检查SD卡是否可用",Toast.LENGTH_SHORT).show();
+            ToastUtils.getInstance(context).showText("无法保存照片,请检查SD卡是否可用");
         }else {
             String fileName = System.currentTimeMillis() + ".jpg";
             File file = new File(storePath, fileName);
@@ -55,13 +54,13 @@ public class BitmapUtils {
                 Uri uri = Uri.fromFile(file);
                 context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
                 if (isSuccess) {
-                    Toast.makeText(context,"保存图片成功",Toast.LENGTH_SHORT).show();
+                    ToastUtils.getInstance(context).showText("保存图片成功");
                 } else {
-                    Toast.makeText(context,"无法保存照片,请检查SD卡是否可用",Toast.LENGTH_SHORT).show();
+                    ToastUtils.getInstance(context).showText("无法保存照片,请检查SD卡是否可用");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(context,"保存失败",Toast.LENGTH_SHORT).show();
+                ToastUtils.getInstance(context).showText("保存失败");
             }
         }
         return isSuccess;

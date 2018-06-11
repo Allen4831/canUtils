@@ -1,5 +1,6 @@
 package com.can.canutils.ui;
 
+import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
@@ -7,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.can.canutils.dialogs.SureOrCancleDialog;
 import com.can.mvp.base.BaseActivity;
@@ -15,6 +15,7 @@ import com.can.mvp.mvps.models.BaseModel;
 import com.can.mvp.mvps.presenters.QRCodePresenter;
 import com.can.mvp.mvps.views.QRCodeView;
 import com.can.mvp.utils.OtherUtils;
+import com.can.mvp.utils.ToastUtils;
 import com.can.mvp.views.BindView;
 
 /**
@@ -49,7 +50,7 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView, SureOrCa
 
     @Override
     public void onError(String error) {
-        Toast.makeText(this,error,Toast.LENGTH_SHORT).show();
+        ToastUtils.getInstance(this).showText(error);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView, SureOrCa
         switch (requestCode) {
             case REQUEST_STORAGE_PERMISSION:
                 if (permissions.length != 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {//失败
-                    Toast.makeText(this,"保存失败，请允许存储权限后再试",Toast.LENGTH_SHORT).show();
+                    ToastUtils.getInstance(this).showText("请允许存储权限后再试");
                 } else {//成功
                     presenter.saveImageToGallery(this,mBitmap);
                 }
@@ -95,7 +96,7 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView, SureOrCa
     @Override
     public void setMyOnClickListener(View view) {
         if(view.getId()== com.can.mvp.R.id.btn_save) {
-            if(checkReadPermission())
+            if(checkReadPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,REQUEST_STORAGE_PERMISSION))
             presenter.saveImageToGallery(this,mBitmap);
         }
         dialog.dismiss();
