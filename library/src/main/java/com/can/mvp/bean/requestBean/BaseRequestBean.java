@@ -1,7 +1,6 @@
 package com.can.mvp.bean.requestBean;
 
-import com.can.mvp.bean.BaseBean;
-
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -9,20 +8,20 @@ import rx.Observable;
  * 请求参数类
  */
 
-public class BaseRequestBean extends BaseBean{
+public class BaseRequestBean {
 
     private String request_url;
-    private Observable<Object> observable;
+    private Observable<ResponseBody> observable;
 
     private String userName;
     private String password;
     private int page;
 
-    public Observable<Object> getObservable() {
+    public Observable<ResponseBody> getObservable() {
         return observable;
     }
 
-    public void setObservable(Observable<Object> observable) {
+    public void setObservable(Observable<ResponseBody> observable) {
         this.observable = observable;
     }
 

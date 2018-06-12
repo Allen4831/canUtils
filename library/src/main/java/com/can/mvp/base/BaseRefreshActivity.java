@@ -5,12 +5,15 @@ import android.view.View;
 
 import com.can.mvp.R;
 import com.can.mvp.bean.requestBean.BaseRequestBean;
+import com.can.mvp.bean.responseBean.BaseResponseBean;
 import com.can.mvp.mvps.models.BaseModel;
 import com.can.mvp.mvps.presenters.BasePresenter;
 import com.can.mvp.mvps.views.BaseView;
 import com.can.mvp.views.baseviews.IRecycleView;
 
 import java.util.List;
+
+import okhttp3.ResponseBody;
 
 
 /**
@@ -49,7 +52,7 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
     }
 
     @Override
-    public void onSuccess(Object success) {
+    public void onSuccess(ResponseBody success) {
         ReturnNetworkData(success);
     }
 
@@ -75,7 +78,7 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
     }
 
     @Override
-    public List<Object> ReturnNetworkData(Object result) {
+    public List<BaseResponseBean> ReturnNetworkData(ResponseBody result) {
         return null;
     }
 

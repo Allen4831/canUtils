@@ -8,6 +8,8 @@ import com.can.mvp.bean.responseBean.User;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
+
 /**
  * Created by can on 2018/3/2.
  * MVP Model
@@ -29,7 +31,7 @@ public interface IBaseModel {
 
     interface onGetDataFinishedListener{
         void onError(String error);
-        void onSuccess(Object result);
+        void onSuccess(ResponseBody result);
         void onComplete();
     }
 
@@ -40,7 +42,7 @@ public interface IBaseModel {
 
     interface IBaseRefreshInterface{
         BaseRequestBean getRequestParameters();
-        List ReturnNetworkData(Object result);
+        List ReturnNetworkData(ResponseBody result);
         RecyclerView.Adapter getAdapter();
     }
 }

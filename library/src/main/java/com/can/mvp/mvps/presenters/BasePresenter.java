@@ -6,6 +6,7 @@ import com.can.mvp.bean.requestBean.BaseRequestBean;
 import com.can.mvp.mvps.models.BaseModel;
 import com.can.mvp.mvps.views.BaseView;
 
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -24,7 +25,7 @@ public class BasePresenter implements IBasePresenter.BasePresenter, IBaseModel.o
 
 
     @Override
-    public void getData(BaseRequestBean baseRequestBean, Observable<Object> observable) {
+    public void getData(BaseRequestBean baseRequestBean, Observable<ResponseBody> observable) {
         if(baseModel!=null)
             baseModel.getData(baseRequestBean,observable,this);
     }
@@ -41,7 +42,7 @@ public class BasePresenter implements IBasePresenter.BasePresenter, IBaseModel.o
     }
 
     @Override
-    public void onSuccess(Object result) {
+    public void onSuccess(ResponseBody result) {
         if(baseView!=null)
             baseView.onSuccess(result);
     }

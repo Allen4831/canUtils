@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 
 import com.can.mvp.bean.requestBean.BaseRequestBean;
 
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -26,7 +27,7 @@ public interface IBasePresenter {
     }
 
     interface BasePresenter{
-        void getData(BaseRequestBean baseRequestBean, Observable<Object> observable);
+        void getData(BaseRequestBean baseRequestBean, Observable<ResponseBody> observable);
         void onDestroy();
     }
 

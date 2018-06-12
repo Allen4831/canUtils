@@ -5,6 +5,7 @@ import android.content.Context;
 import com.can.mvp.service.RetrofitHelper;
 import com.can.mvp.service.RetrofitService;
 
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 
@@ -26,7 +27,7 @@ public class DataManager {
         return mRetrofitService.getHomeBanner();
     }
 
-    public Observable<Object> getHomeArticleList(int page){
+    public Observable<ResponseBody> getHomeArticleList(int page){
         return mRetrofitService.getHomeArticleList(page);
     }
 

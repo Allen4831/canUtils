@@ -1,13 +1,11 @@
 package com.can.mvp.bean.responseBean;
 
-import com.can.mvp.bean.BaseBean;
-
 /**
  * Created by can on 2018/4/3.
  * 用户信息
  */
 
-public class User extends BaseBean {
+public class User extends BaseResponseBean {
 
     private String userName;
     private String userPhone;

@@ -2,6 +2,7 @@ package com.can.mvp.service;
 
 import com.can.mvp.bean.requestBean.BaseRequestBean;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -26,6 +27,6 @@ public interface RetrofitService {
     Observable<Object> getHomeBanner();
 
     @GET("article/list/{page}/json")
-    Observable<Object> getHomeArticleList(@Path("page") int page);
+    Observable<ResponseBody> getHomeArticleList(@Path("page") int page);
 
 }

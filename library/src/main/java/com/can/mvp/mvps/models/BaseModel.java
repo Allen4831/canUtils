@@ -6,16 +6,23 @@ import android.graphics.BitmapFactory;
 
 import com.can.mvp.R;
 import com.can.mvp.base.mvp.IBaseModel;
+import com.can.mvp.bean.responseBean.BaseResponseBean;
 import com.can.mvp.bean.requestBean.BaseRequestBean;
+import com.can.mvp.bean.responseBean.ResponseFunc;
 import com.can.mvp.bean.responseBean.User;
 import com.can.mvp.utils.BitmapUtils;
 import com.can.mvp.utils.QRCodeUtils;
 import com.can.mvp.utils.StringUtils;
 import com.google.zxing.WriterException;
 
+import java.util.List;
+
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
@@ -31,13 +38,13 @@ public class BaseModel {
     }
 
     //请求网络数据
-    public void getData(BaseRequestBean baseRequestBean, Observable<Object> observable,  final IBaseModel.onGetDataFinishedListener listener){
+    public void getData(BaseRequestBean baseRequestBean, Observable<ResponseBody> observable, final IBaseModel.onGetDataFinishedListener listener){
         if(baseRequestBean!=null&&!StringUtils.isEmpty(baseRequestBean.getRequest_url())){
             if(mCompositeSubscription!=null){
                 mCompositeSubscription.add(observable
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<Object>() {
+                        .subscribe(new Observer<ResponseBody>() {
                             @Override
                             public void onCompleted() {
                                 listener.onComplete();
@@ -49,7 +56,7 @@ public class BaseModel {
                             }
 
                             @Override
-                            public void onNext(Object result) {
+                            public void onNext(ResponseBody result) {
                                 listener.onSuccess(result);
                             }
                         })

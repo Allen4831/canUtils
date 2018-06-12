@@ -26,6 +26,8 @@ import com.can.mvp.utils.ToastUtils;
 
 import java.util.List;
 
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import rx.subscriptions.CompositeSubscription;
 
 import static com.can.mvp.application.BaseApplication.getActivityManager;
@@ -227,7 +229,7 @@ public class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseR
     }
 
     @Override
-    public List ReturnNetworkData(Object result) {
+    public List ReturnNetworkData(ResponseBody result) {
         return null;
     }
 
