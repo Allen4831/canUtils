@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 
 import com.can.mvp.bean.requestBean.BaseRequestBean;
 
+import rx.Observable;
+
 /**
  * Created by can on 2018/3/2.
  * MVP Presenter
@@ -24,7 +26,7 @@ public interface IBasePresenter {
     }
 
     interface BasePresenter{
-        void getData(BaseRequestBean baseRequestBean);
+        void getData(BaseRequestBean baseRequestBean, Observable<Object> observable);
         void onDestroy();
     }
 

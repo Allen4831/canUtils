@@ -9,6 +9,7 @@ import com.can.mvp.base.mvp.IBaseView;
 public interface BaseView extends IBaseView {
 
     void onError(String error);
-    void onSuccess(String success);
+    void onSuccess(Object success);
+    void onComplete();
 
 }

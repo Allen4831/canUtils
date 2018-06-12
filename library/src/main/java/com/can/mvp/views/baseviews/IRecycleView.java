@@ -324,13 +324,15 @@ public class IRecycleView extends SwipeRefreshLayout{
     }
 
     /**
-     * 设置数据和网络及登录状态
+     * 设置数据和网络及登录状态以及可用不可用
      * @param state
      */
     public void setState(int state){
         view_loading.setState(state);
-        if(state==DataStateLayout.STATE_NO_LOGIN||state==DataStateLayout.STATE_NETWORK_LOADING)
-            this.setEnabled(false);
+        if(state==DataStateLayout.STATE_NO_LOGIN
+                ||state==DataStateLayout.STATE_NETWORK_LOADING
+                ||state==DataStateLayout.STATE_NETWORK_ERROR)
+            setEnabled(false);
         else
             setEnabled(true);
     }

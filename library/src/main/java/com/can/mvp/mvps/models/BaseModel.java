@@ -13,15 +13,51 @@ import com.can.mvp.utils.QRCodeUtils;
 import com.can.mvp.utils.StringUtils;
 import com.google.zxing.WriterException;
 
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
+
 /**
  * Created by can on 2018/4/4.
  */
 
 public class BaseModel {
 
+    private CompositeSubscription mCompositeSubscription ;
+    public BaseModel(CompositeSubscription compositeSubscription){
+        this.mCompositeSubscription = compositeSubscription;
+    }
+
     //请求网络数据
-    public void getData(BaseRequestBean baseRequestBean, IBaseModel.onGetDataFinishedListener listener){
-        
+    public void getData(BaseRequestBean baseRequestBean, Observable<Object> observable,  final IBaseModel.onGetDataFinishedListener listener){
+        if(baseRequestBean!=null&&!StringUtils.isEmpty(baseRequestBean.getRequest_url())){
+            if(mCompositeSubscription!=null){
+                mCompositeSubscription.add(observable
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<Object>() {
+                            @Override
+                            public void onCompleted() {
+                                listener.onComplete();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                listener.onError("出错了");
+                            }
+
+                            @Override
+                            public void onNext(Object result) {
+                                listener.onSuccess(result);
+                            }
+                        })
+                );
+            }
+        }else{
+            listener.onError("");
+        }
     }
 
     //获取二维码

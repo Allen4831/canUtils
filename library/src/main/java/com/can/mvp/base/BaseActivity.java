@@ -13,14 +13,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.can.mvp.application.BaseApplication;
+import com.can.mvp.base.mvp.IBaseModel;
 import com.can.mvp.base.mvp.IBaseView;
+import com.can.mvp.bean.requestBean.BaseRequestBean;
+import com.can.mvp.service.manager.DataManager;
 import com.can.mvp.utils.AnnotationUtils;
 import com.can.mvp.utils.ToastUtils;
 
 import java.util.List;
+
+import rx.subscriptions.CompositeSubscription;
 
 import static com.can.mvp.application.BaseApplication.getActivityManager;
 
@@ -36,12 +42,18 @@ import static com.can.mvp.application.BaseApplication.getActivityManager;
  *         7.onActivityResult : Fragment回调
  */
 
-public class BaseActivity extends AppCompatActivity implements IBaseView,View.OnClickListener{
+public class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseRefreshInterface,IBaseView,View.OnClickListener{
 
+    public DataManager manager;
+    public CompositeSubscription mCompositeSubscription;
+
+    public static final String URL = "http://www.wanandroid.com/";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        manager = new DataManager(BaseApplication.getInstance(),URL);
+        mCompositeSubscription = new CompositeSubscription();
         init();
     }
 
@@ -61,6 +73,12 @@ public class BaseActivity extends AppCompatActivity implements IBaseView,View.On
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mCompositeSubscription!=null&&mCompositeSubscription.hasSubscriptions())
+            mCompositeSubscription.unsubscribe();
+    }
 
     @Override
     protected void onDestroy() {
@@ -203,4 +221,18 @@ public class BaseActivity extends AppCompatActivity implements IBaseView,View.On
         }
     }
 
+    @Override
+    public BaseRequestBean getRequestParameters() {
+        return null;
+    }
+
+    @Override
+    public void ReturnNetworkData(Object result) {
+
+    }
+
+    @Override
+    public RecyclerView.Adapter getAdapter() {
+        return null;
+    }
 }

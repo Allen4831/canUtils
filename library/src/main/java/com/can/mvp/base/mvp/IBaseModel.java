@@ -1,7 +1,9 @@
 package com.can.mvp.base.mvp;
 
 import android.graphics.Bitmap;
+import android.support.v7.widget.RecyclerView;
 
+import com.can.mvp.bean.requestBean.BaseRequestBean;
 import com.can.mvp.bean.responseBean.User;
 
 /**
@@ -25,7 +27,8 @@ public interface IBaseModel {
 
     interface onGetDataFinishedListener{
         void onError(String error);
-        void onSuccess(String result);
+        void onSuccess(Object result);
+        void onComplete();
     }
 
     interface onQRCodeListener{
@@ -33,5 +36,9 @@ public interface IBaseModel {
         void onSuccess(Bitmap bitmap);
     }
 
-
+    interface IBaseRefreshInterface{
+        BaseRequestBean getRequestParameters();
+        void ReturnNetworkData(Object result);
+        RecyclerView.Adapter getAdapter();
+    }
 }

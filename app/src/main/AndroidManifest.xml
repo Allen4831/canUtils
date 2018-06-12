@@ -32,6 +32,9 @@
         <activity android:name=".ui.QRCodeActivity"
             android:screenOrientation="portrait"/>
 
+        <!--模拟请求数据-->
+        <activity android:name=".ui.SimulationDataActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 

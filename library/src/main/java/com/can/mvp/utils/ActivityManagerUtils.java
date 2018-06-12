@@ -119,7 +119,6 @@ public class ActivityManagerUtils {
     //打开activity
     public static void openActivity(Context context, Class<?> tClass, Bundle bundle, int requestCode){
         Intent intent = new Intent(context,tClass);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if(bundle!=null){
             intent.putExtras(bundle);
         }

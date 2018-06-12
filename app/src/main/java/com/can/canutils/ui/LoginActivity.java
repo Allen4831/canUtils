@@ -35,7 +35,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void initData() {
         super.initData();
-        presenter = new LoginPresenter(this,new BaseModel());
+        presenter = new LoginPresenter(this,new BaseModel(mCompositeSubscription));
     }
 
     @Override

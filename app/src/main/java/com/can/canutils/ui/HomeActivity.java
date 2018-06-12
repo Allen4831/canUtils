@@ -40,7 +40,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
         user.setUserName("多啦B梦");
         user.setUserSex("未知");
 
-        presenter = new HomePresenter(this,new BaseModel());
+        presenter = new HomePresenter(this,new BaseModel(mCompositeSubscription));
 
         presenter.getUser(user.getUserName(),user.getUserId());
     }

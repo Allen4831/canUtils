@@ -44,7 +44,7 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView, SureOrCa
     @Override
     public void initData() {
         super.initData();
-        presenter = new QRCodePresenter(this,new BaseModel());
+        presenter = new QRCodePresenter(this,new BaseModel(mCompositeSubscription));
         dialog = new SureOrCancleDialog(this, com.can.mvp.R.style.style_sureOrCancleDialog,this);
     }
 
