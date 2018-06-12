@@ -4,8 +4,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.can.canutils.R;
+import com.can.canutils.bean.HomeArticleListBean;
 import com.can.mvp.base.BaseRefreshActivity;
 import com.can.mvp.bean.requestBean.BaseRequestBean;
+
+import java.util.List;
 
 /**
  * Created by can on 2018/6/11.
@@ -34,8 +37,12 @@ public class SimulationDataActivity extends BaseRefreshActivity {
     }
 
     @Override
-    public void ReturnNetworkData(Object result) {
-        Log.d("111",result.toString()+"");
-
+    public List ReturnNetworkData(Object result) {
+        if(result!=null){
+            Log.d("111",result.toString());
+            HomeArticleListBean bean = (HomeArticleListBean) result;
+            
+        }
+        return super.ReturnNetworkData(result);
     }
 }

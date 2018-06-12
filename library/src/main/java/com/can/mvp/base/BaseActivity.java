@@ -227,8 +227,8 @@ public class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseR
     }
 
     @Override
-    public void ReturnNetworkData(Object result) {
-
+    public List ReturnNetworkData(Object result) {
+        return null;
     }
 
     @Override

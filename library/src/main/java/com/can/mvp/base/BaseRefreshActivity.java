@@ -10,6 +10,8 @@ import com.can.mvp.mvps.presenters.BasePresenter;
 import com.can.mvp.mvps.views.BaseView;
 import com.can.mvp.views.baseviews.IRecycleView;
 
+import java.util.List;
+
 
 /**
  * Created by can on 2018/6/11.
@@ -43,8 +45,7 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
 
     @Override
     public void onError(String error) {
-        //ReturnNetworkData(error);
-        //ToastUtils.getInstance(this).showText(error);
+
     }
 
     @Override
@@ -74,8 +75,8 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
     }
 
     @Override
-    public void ReturnNetworkData(Object result) {
-
+    public List<Object> ReturnNetworkData(Object result) {
+        return null;
     }
 
     @Override

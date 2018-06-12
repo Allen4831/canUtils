@@ -56,7 +56,7 @@ public class BaseModel {
                 );
             }
         }else{
-            listener.onError("");
+            listener.onError("参数缺省");
         }
     }
 

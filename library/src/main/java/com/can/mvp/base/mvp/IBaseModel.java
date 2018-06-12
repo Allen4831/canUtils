@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import com.can.mvp.bean.requestBean.BaseRequestBean;
 import com.can.mvp.bean.responseBean.User;
 
+import java.util.List;
+
 /**
  * Created by can on 2018/3/2.
  * MVP Model
@@ -38,7 +40,7 @@ public interface IBaseModel {
 
     interface IBaseRefreshInterface{
         BaseRequestBean getRequestParameters();
-        void ReturnNetworkData(Object result);
+        List ReturnNetworkData(Object result);
         RecyclerView.Adapter getAdapter();
     }
 }
