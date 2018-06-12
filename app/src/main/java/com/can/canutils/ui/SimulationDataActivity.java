@@ -7,7 +7,6 @@ import android.view.View;
 import com.can.canutils.R;
 import com.can.mvp.base.BaseRefreshActivity;
 import com.can.mvp.bean.requestBean.BaseRequestBean;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,20 +42,16 @@ public class SimulationDataActivity extends BaseRefreshActivity {
     @Override
     public List ReturnNetworkData(ResponseBody result) {
         if(result!=null){
-            Log.d("111",result.toString().trim());
-            Gson gson = new Gson();
-
-
-
-        }
-        try {
-            String bb = result.string().trim();
-            Log.d("111", ",\tbody=" + bb);
-            if (!TextUtils.isEmpty(bb)) {
+            try {
+                String bb = result.string().trim();
+                Log.d("111", ",\tbody=" + bb);
+                if (!TextUtils.isEmpty(bb)) {
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
         return super.ReturnNetworkData(result);
     }
 }
