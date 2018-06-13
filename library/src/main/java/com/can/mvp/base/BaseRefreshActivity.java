@@ -1,5 +1,6 @@
 package com.can.mvp.base;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.can.mvp.R;
@@ -55,7 +56,7 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
     @Override
     public void onSuccess(ResponseBody success) {
         List list = ReturnNetworkData(success);
-        BaseRefreshAdapter adapter = getAdapter();
+        BaseRefreshAdapter adapter = (BaseRefreshAdapter) getAdapter();
         if(adapter!=null&&irl.getRecyclerView().getAdapter()==null)
             irl.setAdapter(adapter);
         if(list!=null){
@@ -94,7 +95,7 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
     }
 
     @Override
-    public BaseRefreshAdapter getAdapter() {
+    public RecyclerView.Adapter getAdapter() {
         return null;
     }
 }

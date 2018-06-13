@@ -1,8 +1,8 @@
 package com.can.mvp.base.mvp;
 
 import android.graphics.Bitmap;
+import android.support.v7.widget.RecyclerView;
 
-import com.can.mvp.adapter.BaseRefreshAdapter;
 import com.can.mvp.bean.requestBean.BaseRequestBean;
 import com.can.mvp.bean.responseBean.User;
 
@@ -43,6 +43,7 @@ public interface IBaseModel {
     interface IBaseRefreshInterface{
         BaseRequestBean getRequestParameters();
         List ReturnNetworkData(ResponseBody result);
-        BaseRefreshAdapter getAdapter();
+        RecyclerView.Adapter getAdapter();
+
     }
 }

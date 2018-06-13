@@ -40,7 +40,7 @@ public abstract class BaseRefreshAdapter<T> extends RecyclerView.Adapter {
         if(getLayoutId(viewType)==0){
             return null;
         }else{
-            View view = LayoutInflater.from(context).inflate(getLayoutId(viewType),parent,false);
+            View view = LayoutInflater.from(context).inflate(getLayoutId(viewType),null);
             if(view==null)
                 return null;
             else

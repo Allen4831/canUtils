@@ -13,9 +13,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.can.mvp.adapter.BaseRefreshAdapter;
 import com.can.mvp.application.BaseApplication;
 import com.can.mvp.base.mvp.IBaseModel;
 import com.can.mvp.base.mvp.IBaseView;
@@ -233,7 +233,7 @@ public class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseR
     }
 
     @Override
-    public BaseRefreshAdapter getAdapter() {
+    public RecyclerView.Adapter getAdapter() {
         return null;
     }
 }

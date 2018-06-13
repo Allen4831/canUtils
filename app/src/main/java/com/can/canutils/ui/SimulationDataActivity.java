@@ -1,11 +1,11 @@
 package com.can.canutils.ui;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.can.canutils.R;
 import com.can.canutils.adapter.HomeArticleListAdapter;
 import com.can.canutils.bean.HomeArticleListBean;
-import com.can.mvp.adapter.BaseRefreshAdapter;
 import com.can.mvp.base.BaseRefreshActivity;
 import com.can.mvp.bean.requestBean.BaseRequestBean;
 import com.can.mvp.utils.GsonUtils;
@@ -49,7 +49,7 @@ public class SimulationDataActivity extends BaseRefreshActivity {
     }
 
     @Override
-    public BaseRefreshAdapter getAdapter() {
+    public RecyclerView.Adapter getAdapter() {
         HomeArticleListAdapter adapter = new HomeArticleListAdapter(this);
         return adapter;
     }
