@@ -1,11 +1,10 @@
 package com.can.mvp.base;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.can.mvp.R;
+import com.can.mvp.adapter.BaseRefreshAdapter;
 import com.can.mvp.bean.requestBean.BaseRequestBean;
-import com.can.mvp.bean.responseBean.BaseResponseBean;
 import com.can.mvp.mvps.models.BaseModel;
 import com.can.mvp.mvps.presenters.BasePresenter;
 import com.can.mvp.mvps.views.BaseView;
@@ -25,6 +24,8 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
 
     public IRecycleView irl;
     public BasePresenter basePresenter;
+
+    public int pageIndex = 0;
 
     @Override
     public int getLayoutId() {
@@ -48,12 +49,21 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
 
     @Override
     public void onError(String error) {
-
+        irl.refreshComlete();
     }
 
     @Override
     public void onSuccess(ResponseBody success) {
-        ReturnNetworkData(success);
+        List list = ReturnNetworkData(success);
+        BaseRefreshAdapter adapter = getAdapter();
+        if(adapter!=null&&irl.getRecyclerView().getAdapter()==null)
+            irl.setAdapter(adapter);
+        if(list!=null){
+            if(pageIndex==0)
+                adapter.setList(list);
+            else
+                adapter.addList(list);
+        }
     }
 
     @Override
@@ -64,6 +74,7 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
 
     @Override
     public void onRefresh() {
+        pageIndex = 0;
         basePresenter.getData(getRequestParameters(),getRequestParameters()==null?null:getRequestParameters().getObservable());
     }
 
@@ -78,12 +89,12 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
     }
 
     @Override
-    public List<BaseResponseBean> ReturnNetworkData(ResponseBody result) {
+    public List ReturnNetworkData(ResponseBody result) {
         return null;
     }
 
     @Override
-    public RecyclerView.Adapter getAdapter() {
+    public BaseRefreshAdapter getAdapter() {
         return null;
     }
 }

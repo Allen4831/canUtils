@@ -6,23 +6,17 @@ import android.graphics.BitmapFactory;
 
 import com.can.mvp.R;
 import com.can.mvp.base.mvp.IBaseModel;
-import com.can.mvp.bean.responseBean.BaseResponseBean;
 import com.can.mvp.bean.requestBean.BaseRequestBean;
-import com.can.mvp.bean.responseBean.ResponseFunc;
 import com.can.mvp.bean.responseBean.User;
 import com.can.mvp.utils.BitmapUtils;
 import com.can.mvp.utils.QRCodeUtils;
 import com.can.mvp.utils.StringUtils;
 import com.google.zxing.WriterException;
 
-import java.util.List;
-
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 

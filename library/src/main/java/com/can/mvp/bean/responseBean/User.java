@@ -5,7 +5,7 @@ package com.can.mvp.bean.responseBean;
  * 用户信息
  */
 
-public class User extends BaseResponseBean {
+public class User  {
 
     private String userName;
     private String userPhone;

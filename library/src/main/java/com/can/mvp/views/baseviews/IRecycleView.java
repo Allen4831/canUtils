@@ -186,14 +186,14 @@ public class IRecycleView extends SwipeRefreshLayout{
      */
     public void refreshComlete() {
         if(NetWorkUtils.isNetWork(getContext())){//网络正常时
-            if(recyclerView.getChildCount()==0){//空数据时
+            if(recyclerView.getAdapter()==null||recyclerView.getAdapter().getItemCount()==0){//空数据时
                 setState(DataStateLayout.STATE_NODATA);
             }else {//非空数据时
                 setState(DataStateLayout.STATE_HIDE_LAYOUT);
             }
             llHeader.setVisibility(VISIBLE);
         }else{//无网络时
-            if(recyclerView.getChildCount()==0) {//没有数据时
+            if(recyclerView.getAdapter()==null||recyclerView.getAdapter().getItemCount()==0) {//没有数据时
                 setState(DataStateLayout.STATE_NETWORK_ERROR);
                 llHeader.setVisibility(GONE);
             }else {//有数据时

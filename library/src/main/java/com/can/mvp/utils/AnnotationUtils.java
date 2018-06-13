@@ -3,6 +3,7 @@ package com.can.mvp.utils;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.can.mvp.views.BindView;
@@ -78,5 +79,37 @@ public class AnnotationUtils {
      */
     public static void initBindView(Fragment frag) {
         initBindView(frag, frag.getActivity().getWindow().getDecorView());
+    }
+
+    /**
+     * @param currentClass
+     *            当前类，一般为Activity或Fragment
+     * @param sourceView
+     *            待绑定控件的直接或间接父控件
+     */
+    public static void initBindView(RecyclerView.ViewHolder currentClass, View sourceView) {
+        // 通过反射获取到全部属性，反射的字段可能是一个类（静态）字段或实例字段
+        Field[] fields = currentClass.getClass().getDeclaredFields();
+        if (fields != null && fields.length > 0) {
+            for (Field field : fields) {
+                // 返回BindView类型的注解内容
+                BindView bindView = field.getAnnotation(BindView.class);
+                if (bindView != null) {
+                    int viewId = bindView.id();
+                    boolean clickLis = bindView.click();
+                    try {
+                        field.setAccessible(true);
+                        if (clickLis) {
+                            sourceView.findViewById(viewId).setOnClickListener(
+                                    (View.OnClickListener) currentClass);
+                        }
+                        // 将currentClass的field赋值为sourceView.findViewById(viewId)
+                        field.set(currentClass, sourceView.findViewById(viewId));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 }
