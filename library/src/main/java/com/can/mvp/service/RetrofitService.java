@@ -24,7 +24,7 @@ public interface RetrofitService {
     Call<String> getBaseBean(@Path("page") int page);
 
     @GET("banner/json")
-    Observable<Object> getHomeBanner();
+    Observable<ResponseBody> getHomeBanner();
 
     @GET("article/list/{page}/json")
     Observable<ResponseBody> getHomeArticleList(@Path("page") int page);

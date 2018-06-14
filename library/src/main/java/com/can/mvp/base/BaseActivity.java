@@ -20,6 +20,7 @@ import com.can.mvp.application.BaseApplication;
 import com.can.mvp.base.mvp.IBaseModel;
 import com.can.mvp.base.mvp.IBaseView;
 import com.can.mvp.bean.requestBean.BaseRequestBean;
+import com.can.mvp.service.manager.BaseDataManager;
 import com.can.mvp.service.manager.DataManager;
 import com.can.mvp.utils.AnnotationUtils;
 import com.can.mvp.utils.ToastUtils;
@@ -27,6 +28,7 @@ import com.can.mvp.utils.ToastUtils;
 import java.util.List;
 
 import okhttp3.ResponseBody;
+import retrofit2.converter.gson.GsonConverterFactory;
 import rx.subscriptions.CompositeSubscription;
 
 import static com.can.mvp.application.BaseApplication.getActivityManager;
@@ -45,7 +47,7 @@ import static com.can.mvp.application.BaseApplication.getActivityManager;
 
 public class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseRefreshInterface,IBaseView,View.OnClickListener{
 
-    public DataManager manager;
+    public BaseDataManager manager;
     public CompositeSubscription mCompositeSubscription;
 
     public static final String URL = "http://www.wanandroid.com/";
@@ -53,7 +55,7 @@ public class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseR
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        manager = new DataManager(BaseApplication.getInstance(),URL);
+        manager = getDataManager();
         mCompositeSubscription = new CompositeSubscription();
         init();
     }
@@ -235,5 +237,11 @@ public class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseR
     @Override
     public RecyclerView.Adapter getAdapter() {
         return null;
+    }
+
+    @Override
+    public BaseDataManager getDataManager() {
+        GsonConverterFactory factory = GsonConverterFactory.create();
+        return new DataManager(BaseApplication.getInstance(),URL,factory);
     }
 }

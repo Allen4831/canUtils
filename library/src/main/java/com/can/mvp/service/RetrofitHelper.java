@@ -2,8 +2,6 @@ package com.can.mvp.service;
 
 import android.content.Context;
 
-import com.google.gson.GsonBuilder;
-
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -18,15 +16,16 @@ public class RetrofitHelper {
 
     private Context context;//上下文
     private OkHttpClient okHttpClient = new OkHttpClient();//okHttp
-    private GsonConverterFactory gsonConverterFactory = GsonConverterFactory.create(new GsonBuilder().create());//Gson工厂类
+    private static GsonConverterFactory gsonConverterFactory ;//Gson工厂类
 
     private static Retrofit retrofit;//Retroift
     private String baseUrl;//网址
 
     //单例化
     private static RetrofitHelper retrofitHelper ;
-    public static RetrofitHelper getInstance(Context context,String url){
+    public static RetrofitHelper getInstance(Context context,String url,GsonConverterFactory factory){
         if(retrofitHelper==null){
+            gsonConverterFactory = factory;
             retrofitHelper = new RetrofitHelper(context,url);
         }
         return retrofitHelper;
@@ -49,9 +48,8 @@ public class RetrofitHelper {
         ;
     }
 
-    public RetrofitService getServer(){
-        return retrofit.create(RetrofitService.class);
+    public Retrofit getRetrofit(){
+        return retrofit;
     }
-
 
 }

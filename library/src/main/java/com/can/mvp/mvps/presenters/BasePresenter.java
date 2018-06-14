@@ -36,9 +36,9 @@ public class BasePresenter implements IBasePresenter.BasePresenter, IBaseModel.o
     }
 
     @Override
-    public void onError(String error) {
+    public void onError(int type,String error) {
         if(baseView!=null)
-            baseView.onError(error);
+            baseView.onError(type,error);
     }
 
     @Override

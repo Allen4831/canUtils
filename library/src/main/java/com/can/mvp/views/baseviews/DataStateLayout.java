@@ -23,6 +23,7 @@ public class DataStateLayout extends LinearLayout{
     public static final int STATE_NODATA = 3;//数据为空
     public static final int STATE_HIDE_LAYOUT = 4;//隐藏
     public static final int STATE_NO_LOGIN = 5;//未登录
+    public static final int STATE_CODE_ERROR = 6 ; //代码出错
 
     //各种状态的文字显示
     private String string_no_data ;
@@ -34,6 +35,7 @@ public class DataStateLayout extends LinearLayout{
     private int drawable_no_data;
     private int drawable_no_login;
     private int drawable_network_error;
+    private int drawable_code_error;
 
     private ProgressBar animProgress;//加载进度框
     private boolean clickEnable = true;//是否可点击
@@ -76,9 +78,10 @@ public class DataStateLayout extends LinearLayout{
         string_loading = context.getString(R.string.string_loading);
         string_network_error = context.getString(R.string.string_network_error);
 
-        drawable_no_data = R.drawable.img_no_data;
-        drawable_no_login = R.drawable.img_no_login;
+        drawable_no_data = R.drawable.img_data_error;
+        drawable_no_login = R.drawable.img_data_error;
         drawable_network_error = R.drawable.img_no_net;
+        drawable_code_error = R.drawable.img_data_error;
 
         //布局初始化
         View view = View.inflate(this.context, R.layout.layout_data_state, null);
@@ -100,13 +103,17 @@ public class DataStateLayout extends LinearLayout{
         this.addView(view);
     }
 
+    public void setState(int type){
+        setState(type,"");
+    }
+
     /**
      * 设置状态
-     * @param i
+     * @param type
      */
-    public void setState(int i) {
+    public void setState(int type,String string) {
         this.setVisibility(VISIBLE);
-        switch(i) {
+        switch(type) {
             case STATE_NETWORK_ERROR://网络错误
                 this.mState = STATE_NETWORK_ERROR;
                 this.ll_after_loading.setVisibility(VISIBLE);
@@ -140,6 +147,15 @@ public class DataStateLayout extends LinearLayout{
                 this.img.setBackgroundResource(drawable_no_login);
                 this.tv.setText(string_no_login);
                 this.clickEnable = false;
+                break;
+            case STATE_CODE_ERROR: //代码出错
+                this.mState = STATE_CODE_ERROR;
+                this.ll_after_loading.setVisibility(VISIBLE);
+                this.ll_loading.setVisibility(GONE);
+                this.img.setBackgroundResource(drawable_code_error);
+                this.tv.setText(string+"");
+                this.clickEnable = true;
+                break;
         }
     }
 

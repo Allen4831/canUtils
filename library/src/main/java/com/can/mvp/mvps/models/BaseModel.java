@@ -11,6 +11,7 @@ import com.can.mvp.bean.responseBean.User;
 import com.can.mvp.utils.BitmapUtils;
 import com.can.mvp.utils.QRCodeUtils;
 import com.can.mvp.utils.StringUtils;
+import com.can.mvp.views.baseviews.DataStateLayout;
 import com.google.zxing.WriterException;
 
 import okhttp3.ResponseBody;
@@ -34,7 +35,7 @@ public class BaseModel {
     //请求网络数据
     public void getData(BaseRequestBean baseRequestBean, Observable<ResponseBody> observable, final IBaseModel.onGetDataFinishedListener listener){
         if(baseRequestBean!=null&&!StringUtils.isEmpty(baseRequestBean.getRequest_url())){
-            if(mCompositeSubscription!=null){
+            if(mCompositeSubscription!=null&&observable!=null){
                 mCompositeSubscription.add(observable
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -46,7 +47,7 @@ public class BaseModel {
 
                             @Override
                             public void onError(Throwable e) {
-                                listener.onError("出错了");
+                                listener.onError(DataStateLayout.STATE_CODE_ERROR,"onError():"+e.toString());
                             }
 
                             @Override
@@ -55,9 +56,11 @@ public class BaseModel {
                             }
                         })
                 );
+            }else{
+                listener.onError(DataStateLayout.STATE_CODE_ERROR,"CompositeSubscription或Observable为空");
             }
         }else{
-            listener.onError("参数缺省");
+            listener.onError(DataStateLayout.STATE_CODE_ERROR,"BaseRequestBean为空");
         }
     }
 

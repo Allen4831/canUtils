@@ -27,6 +27,7 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
     public BasePresenter basePresenter;
 
     public int pageIndex = 0;
+    private BaseRefreshAdapter adapter;
 
     @Override
     public int getLayoutId() {
@@ -49,17 +50,23 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
     }
 
     @Override
-    public void onError(String error) {
+    public void onError(int type,String error) {
         irl.refreshComlete();
+        irl.setState(type,error);
     }
 
     @Override
     public void onSuccess(ResponseBody success) {
         List list = ReturnNetworkData(success);
-        BaseRefreshAdapter adapter = (BaseRefreshAdapter) getAdapter();
+        if(adapter==null)
+            adapter = (BaseRefreshAdapter) getAdapter();
         if(adapter!=null&&irl.getRecyclerView().getAdapter()==null)
             irl.setAdapter(adapter);
         if(list!=null){
+            if(list.size()>=20)
+                irl.setCanLoadMore(true);
+            else
+                irl.setCanLoadMore(false);
             if(pageIndex==0)
                 adapter.setList(list);
             else
@@ -81,7 +88,8 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
 
     @Override
     public void onLoadMore() {
-
+        pageIndex ++;
+        basePresenter.getData(getRequestParameters(),getRequestParameters()==null?null:getRequestParameters().getObservable());
     }
 
     @Override

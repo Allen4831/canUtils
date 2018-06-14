@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.can.mvp.bean.requestBean.BaseRequestBean;
 import com.can.mvp.bean.responseBean.User;
+import com.can.mvp.service.manager.BaseDataManager;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public interface IBaseModel {
     }
 
     interface onGetDataFinishedListener{
-        void onError(String error);
+        void onError(int type,String error);
         void onSuccess(ResponseBody result);
         void onComplete();
     }
@@ -44,6 +45,7 @@ public interface IBaseModel {
         BaseRequestBean getRequestParameters();
         List ReturnNetworkData(ResponseBody result);
         RecyclerView.Adapter getAdapter();
+        BaseDataManager getDataManager();
 
     }
 }

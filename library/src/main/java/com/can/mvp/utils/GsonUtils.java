@@ -13,7 +13,12 @@ import okhttp3.ResponseBody;
 public class GsonUtils {
 
     private static GsonUtils gsonUtils;
-    private static Gson gson = (new GsonBuilder()).disableHtmlEscaping().create();
+    private static Gson gson = (new GsonBuilder())
+            .setPrettyPrinting()//对结果进行格式化，增加换行
+            .disableHtmlEscaping()//防止特殊字符出现乱码
+            .serializeNulls()//当字段值为空或null时，依然对该字段进行转换
+            .setDateFormat("yyyy-MM-dd HH:mm:ss:SSS") //时间转化为特定格式
+            .create();
 
     public static GsonUtils getInstance(){
         if(gsonUtils==null)
@@ -39,6 +44,10 @@ public class GsonUtils {
             try {
                 String result = responseBody.string().trim();
                 if (!StringUtils.isEmpty(result)) {
+                        result = result.replace("&mdash;","—")
+                                .replaceAll("&ndash;","—")
+                                .replaceAll("&ldquo;","“")
+                                .replaceAll("&rdquo;","”");
                     return jsonStrToBean(result,tClass);
                 }
             } catch (Exception e) {

@@ -8,6 +8,7 @@ import com.can.canutils.adapter.HomeArticleListAdapter;
 import com.can.canutils.bean.HomeArticleListBean;
 import com.can.mvp.base.BaseRefreshActivity;
 import com.can.mvp.bean.requestBean.BaseRequestBean;
+import com.can.mvp.service.manager.DataManager;
 import com.can.mvp.utils.GsonUtils;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class SimulationDataActivity extends BaseRefreshActivity {
     public BaseRequestBean getRequestParameters() {
         BaseRequestBean bean = new BaseRequestBean();
         bean.setRequest_url("http://www.wanandroid.com/");
-        bean.setObservable(manager.getHomeArticleList(pageIndex));
+        bean.setObservable(manager!=null?((DataManager)manager).getHomeArticleList(pageIndex):null);
         return bean;
     }
 

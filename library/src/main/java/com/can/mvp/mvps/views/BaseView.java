@@ -10,7 +10,7 @@ import okhttp3.ResponseBody;
 
 public interface BaseView extends IBaseView {
 
-    void onError(String error);
+    void onError(int type,String error);
     void onSuccess(ResponseBody success);
     void onComplete();
 

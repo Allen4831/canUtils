@@ -6,6 +6,7 @@ import com.can.mvp.service.RetrofitHelper;
 import com.can.mvp.service.RetrofitService;
 
 import okhttp3.ResponseBody;
+import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 
 
@@ -14,16 +15,16 @@ import rx.Observable;
  * 数据管理类
  */
 
-public class DataManager {
+public class DataManager extends BaseDataManager{
 
     private RetrofitService mRetrofitService;
 
-    public DataManager(Context context,String url){
-        this.mRetrofitService = RetrofitHelper.getInstance(context,url).getServer();
+    public DataManager(Context context, String url, GsonConverterFactory gsonConverterFactory){
+        this.mRetrofitService = RetrofitHelper.getInstance(context,url,gsonConverterFactory).getRetrofit().create(RetrofitService.class);
     }
 
     //获取首页banner
-    public Observable<Object> getHomeBanner(){
+    public Observable<ResponseBody> getHomeBanner(){
         return mRetrofitService.getHomeBanner();
     }
 

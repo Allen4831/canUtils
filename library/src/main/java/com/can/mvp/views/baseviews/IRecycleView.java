@@ -209,7 +209,7 @@ public class IRecycleView extends SwipeRefreshLayout{
 
     /**
      * 加载更多
-     * @param loading 是否能加载更多
+     * @param loading 加载
      */
     public void loadMore(boolean loading) {
         if(loading) {
@@ -321,6 +321,20 @@ public class IRecycleView extends SwipeRefreshLayout{
         if(this.refreshListener != null && refreshing) {
             this.refreshListener.onRefresh();
         }
+    }
+
+    /**
+     * 设置数据和网络及登录状态以及可用不可用
+     * @param state
+     */
+    public void setState(int state,String string){
+        view_loading.setState(state,string);
+        if(state==DataStateLayout.STATE_NO_LOGIN
+                ||state==DataStateLayout.STATE_NETWORK_LOADING
+                ||state==DataStateLayout.STATE_NETWORK_ERROR)
+            setEnabled(false);
+        else
+            setEnabled(true);
     }
 
     /**

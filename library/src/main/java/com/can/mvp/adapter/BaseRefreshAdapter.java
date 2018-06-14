@@ -24,14 +24,14 @@ public abstract class BaseRefreshAdapter<T> extends RecyclerView.Adapter {
     }
 
     //设置数据
-    public void setList(List<T> list){
-        this.list = list;
+    public void setList(List<T> mList){
+        this.list = mList;
         notifyDataSetChanged();
     }
 
     //添加数据
-    public void addList(List<T> list){
-        this.list.addAll(list);
+    public void addList(List<T> mList){
+        this.list.addAll(mList);
         notifyDataSetChanged();
     }
 
@@ -53,12 +53,10 @@ public abstract class BaseRefreshAdapter<T> extends RecyclerView.Adapter {
         setView(holder,list.get(position),position);
     }
 
-
     @Override
     public int getItemCount() {
         return list.size();
     }
-
 
     public abstract RecyclerView.ViewHolder getViewHolder(View view,int type);
 
