@@ -16,19 +16,16 @@ import android.widget.Scroller;
 import java.lang.reflect.Field;
 
 /**
- * Created by can on 2018/5/16.
- * 竖直viewpager+自动滚动+无限滚动+禁止手动滚动
+ * Created by can on 2018/6/15.
+ * 竖直方向+自动滚动+无限滚动+可禁止手动滚动的ViewPager
  */
 
 public class VerticalViewPager extends ViewPager {
 
-    //是否可以手动滑动
-    private boolean enabled = false;
-
     private int scroll_duration = 2000; //滑动时长
     private int switch_duration = 1000; //切换时长
 
-    private PagerAdapter adapter;
+    private PagerAdapter adapter;//适配器
 
     public VerticalViewPager(Context context) {
         super(context);
@@ -47,14 +44,17 @@ public class VerticalViewPager extends ViewPager {
         }
     }
 
+    //设置切换的时间
     public void setSwitchDuration(int duration){
         this.switch_duration = duration;
     }
 
+    //设置滚动的时间
     public void setScrollDuration(int duration){
         this.scroll_duration = duration;
     }
 
+    //主线程处理滚动布局切换
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -126,7 +126,7 @@ public class VerticalViewPager extends ViewPager {
         }
     }
 
-    //竖直方向
+    //设置滚动为竖直方向的滚动
     private class VerticalPageTransformer implements ViewPager.PageTransformer {
         @Override
         public void transformPage(View view, float position) {
@@ -148,19 +148,13 @@ public class VerticalViewPager extends ViewPager {
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         //不拦截触摸事件,由上层处理
-        if(enabled)
-            return super.onTouchEvent(ev);
-        else
-            return false;
+        return false;
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         //不拦截分发事件，由子控件分发处理
-        if(enabled)
-            return super.onInterceptTouchEvent(ev);
-        else
-            return false;
+        return false;
     }
 
     @Override
@@ -169,10 +163,6 @@ public class VerticalViewPager extends ViewPager {
         return super.dispatchTouchEvent(ev);
     }
 
-    //是否可以手动滑动
-    public void setCanScroll(boolean enabled){
-        this.enabled = enabled;
-    }
 
 }
 

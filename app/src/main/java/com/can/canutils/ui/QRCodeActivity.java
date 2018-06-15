@@ -3,6 +3,7 @@ package com.can.canutils.ui;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
@@ -32,18 +33,19 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView, SureOrCa
     @BindView(id = com.can.mvp.R.id.iv_qrcode,click = true)
     private ImageView iv_qrcode;
 
-    @Override
-    public int getLayoutId() {
-        return com.can.mvp.R.layout.activity_qrcode;
-    }
 
     private QRCodePresenter presenter;
     private Bitmap mBitmap ;
     private SureOrCancleDialog dialog;
 
     @Override
-    public void initData() {
-        super.initData();
+    public int getLayoutId() {
+        return com.can.mvp.R.layout.activity_qrcode;
+    }
+
+    @Override
+    public void initData(Bundle bundle) {
+        super.initData(bundle);
         presenter = new QRCodePresenter(this,new BaseModel(mCompositeSubscription));
         dialog = new SureOrCancleDialog(this, com.can.mvp.R.style.style_sureOrCancleDialog,this);
     }

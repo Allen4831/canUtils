@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.can.mvp.base.mvp.IBaseView;
+import com.can.mvp.bean.requestBean.BaseRequestBean;
 import com.can.mvp.utils.AnnotationUtils;
 import com.can.mvp.utils.FragmentManagerUtils;
 
@@ -16,7 +17,7 @@ import com.can.mvp.utils.FragmentManagerUtils;
  * Created by can on 2018/3/6.
  */
 
-public class BaseFragment extends Fragment implements IBaseView,View.OnClickListener{
+public abstract class BaseFragment extends Fragment implements IBaseView,View.OnClickListener{
 
 
     @Override
@@ -26,10 +27,10 @@ public class BaseFragment extends Fragment implements IBaseView,View.OnClickList
         if (contentId != 0) {
             View view = inflater.inflate(contentId,null);
             AnnotationUtils.initBindView(this,view);
+            Bundle bundle = getArguments();
             initView(view);
-            initData();
+            initData(bundle);
             initEvent();
-            requestData();
             return view;
         }
         return super.onCreateView(inflater, container, savedInstanceState);
@@ -42,10 +43,7 @@ public class BaseFragment extends Fragment implements IBaseView,View.OnClickList
         FragmentManagerUtils.getInstance().removeFragment(this);
     }
 
-    @Override
-    public int getLayoutId() {
-        return 0;
-    }
+    public abstract int getLayoutId();
 
     @Override
     public void initView(View view) {
@@ -58,12 +56,11 @@ public class BaseFragment extends Fragment implements IBaseView,View.OnClickList
     }
 
     @Override
-    public void initData() {
+    public void initData(Bundle bundle) {
 
     }
 
-    @Override
-    public void requestData() {
+    public void requestData(BaseRequestBean bean) {
 
     }
 
@@ -73,10 +70,6 @@ public class BaseFragment extends Fragment implements IBaseView,View.OnClickList
 
     }
 
-    @Override
-    public void onNetWorkError() {
-
-    }
 
     @Override
     public void onClick(View view) {

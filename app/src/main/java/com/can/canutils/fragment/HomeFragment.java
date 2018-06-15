@@ -1,5 +1,6 @@
 package com.can.canutils.fragment;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -24,11 +25,6 @@ public class HomeFragment extends BaseFragment implements HomeView, IRecycleView
         return fragment;
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_home;
-    }
-
     @BindView(id = R.id.rv_fragment)
     private IRecycleView rv;
     @BindView(id = R.id.btn_loading,click = true)
@@ -41,6 +37,11 @@ public class HomeFragment extends BaseFragment implements HomeView, IRecycleView
     private Button btn_no_login;
     @BindView(id = R.id.btn_hide,click = true)
     private Button btn_hide;
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_home;
+    }
 
     @Override
     public void initView(View view) {
@@ -72,8 +73,8 @@ public class HomeFragment extends BaseFragment implements HomeView, IRecycleView
     }
 
     @Override
-    public void initData() {
-        super.initData();
+    public void initData(Bundle bundle) {
+        super.initData(bundle);
         User user = new User();
         user.setUserAge("28");
         user.setUserId("456789");

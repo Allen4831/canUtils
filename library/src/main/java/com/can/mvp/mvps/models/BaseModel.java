@@ -64,6 +64,8 @@ public class BaseModel {
         }
     }
 
+
+
     //获取二维码
     public void getQRCode(Context context,String content, Bitmap bitmap, IBaseModel.onQRCodeListener listener){
         if(StringUtils.isEmpty(content)&&bitmap==null)

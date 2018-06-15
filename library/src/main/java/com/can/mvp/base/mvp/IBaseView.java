@@ -1,5 +1,6 @@
 package com.can.mvp.base.mvp;
 
+import android.os.Bundle;
 import android.view.View;
 
 /**
@@ -9,12 +10,6 @@ import android.view.View;
  */
 
 public interface IBaseView {
-
-    /**
-     * 返回布局
-     * @return
-     */
-     int getLayoutId();
 
     /**
      * 初始化控件
@@ -29,20 +24,12 @@ public interface IBaseView {
     /**
      * 初始化数据
      */
-    void initData();
+    void initData(Bundle bundle);
 
-    /**
-     * 请求网络数据
-     */
-     void requestData();
 
     /**
      * 点击事件
      */
     void setClick(View view);
 
-    /**
-     * 网络错误
-     */
-    void onNetWorkError();
 }

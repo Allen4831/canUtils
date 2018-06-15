@@ -1,13 +1,12 @@
 package com.can.mvp.base;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.can.mvp.R;
 import com.can.mvp.adapter.BaseRefreshAdapter;
 import com.can.mvp.bean.requestBean.BaseRequestBean;
-import com.can.mvp.mvps.models.BaseModel;
-import com.can.mvp.mvps.presenters.BasePresenter;
 import com.can.mvp.mvps.views.BaseView;
 import com.can.mvp.views.baseviews.IRecycleView;
 
@@ -24,7 +23,6 @@ import okhttp3.ResponseBody;
 public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecycleView.OnIRecycleListener {
 
     public IRecycleView irl;
-    public BasePresenter basePresenter;
 
     public int pageIndex = 0;
     private BaseRefreshAdapter adapter;
@@ -38,15 +36,13 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
     public void initView(View view) {
         super.initView(view);
         irl = (IRecycleView) findViewById(R.id.irl);
-
         irl.setOnIRecycleListener(this);
     }
 
     @Override
-    public void initData() {
-        super.initData();
-        basePresenter = new BasePresenter(this,new BaseModel(mCompositeSubscription));
-        basePresenter.getData(getRequestParameters(),getRequestParameters()==null?null:getRequestParameters().getObservable());
+    public void initData(Bundle bundle) {
+        super.initData(bundle);
+        requestData(getRequestParameters());
     }
 
     @Override
@@ -83,13 +79,14 @@ public class BaseRefreshActivity extends BaseActivity implements BaseView, IRecy
     @Override
     public void onRefresh() {
         pageIndex = 0;
-        basePresenter.getData(getRequestParameters(),getRequestParameters()==null?null:getRequestParameters().getObservable());
+        requestData(getRequestParameters());
     }
+
 
     @Override
     public void onLoadMore() {
         pageIndex ++;
-        basePresenter.getData(getRequestParameters(),getRequestParameters()==null?null:getRequestParameters().getObservable());
+        requestData(getRequestParameters());
     }
 
     @Override

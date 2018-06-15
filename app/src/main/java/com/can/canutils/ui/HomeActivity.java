@@ -1,5 +1,6 @@
 package com.can.canutils.ui;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,9 +31,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
     }
 
     @Override
-    public void initData() {
-        super.initData();
-
+    public void initData(Bundle bundle) {
         User user = new User();
         user.setUserAge("18");
         user.setUserId("123456");

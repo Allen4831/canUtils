@@ -20,6 +20,9 @@ import com.can.mvp.application.BaseApplication;
 import com.can.mvp.base.mvp.IBaseModel;
 import com.can.mvp.base.mvp.IBaseView;
 import com.can.mvp.bean.requestBean.BaseRequestBean;
+import com.can.mvp.mvps.models.BaseModel;
+import com.can.mvp.mvps.presenters.BasePresenter;
+import com.can.mvp.mvps.views.BaseView;
 import com.can.mvp.service.manager.BaseDataManager;
 import com.can.mvp.service.manager.DataManager;
 import com.can.mvp.utils.AnnotationUtils;
@@ -45,10 +48,12 @@ import static com.can.mvp.application.BaseApplication.getActivityManager;
  *         7.onActivityResult : Fragment回调
  */
 
-public class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseRefreshInterface,IBaseView,View.OnClickListener{
+public abstract class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseRefreshInterface,IBaseView,View.OnClickListener, BaseView {
 
     public BaseDataManager manager;
     public CompositeSubscription mCompositeSubscription;
+    public BasePresenter basePresenter;
+
 
     public static final String URL = "http://www.wanandroid.com/";
 
@@ -57,6 +62,7 @@ public class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseR
         super.onCreate(savedInstanceState);
         manager = getDataManager();
         mCompositeSubscription = new CompositeSubscription();
+        basePresenter = new BasePresenter(this,new BaseModel(mCompositeSubscription));
         init();
     }
 
@@ -70,9 +76,9 @@ public class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseR
             setContentView(contentId);
             AnnotationUtils.initBindView(this);
             initView(getWindow().getDecorView());
-            initData();
+            initData(null);
             initEvent();
-            requestData();
+            //requestData();
         }
     }
 
@@ -90,10 +96,7 @@ public class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseR
     }
 
 
-    @Override
-    public int getLayoutId() {
-        return 0;
-    }
+    public abstract int getLayoutId();
 
     @Override
     public void initView(View view) {
@@ -106,23 +109,21 @@ public class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseR
     }
 
     @Override
-    public void initData() {
-
+    public void initData(Bundle bundle) {
     }
 
-    @Override
-    public void requestData() {
-
+    /**
+     * 请求网络数据
+     * @param bean
+     */
+    public void requestData(BaseRequestBean bean) {
+        basePresenter.getData(bean,bean.getObservable());
     }
 
     @Override
     public void setClick(View view) {
     }
 
-    @Override
-    public void onNetWorkError() {
-
-    }
 
     @Override
     public void onClick(View view) {
@@ -243,5 +244,20 @@ public class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseR
     public BaseDataManager getDataManager() {
         GsonConverterFactory factory = GsonConverterFactory.create();
         return new DataManager(BaseApplication.getInstance(),URL,factory);
+    }
+
+    @Override
+    public void onError(int type, String error) {
+
+    }
+
+    @Override
+    public void onSuccess(ResponseBody success) {
+
+    }
+
+    @Override
+    public void onComplete() {
+
     }
 }

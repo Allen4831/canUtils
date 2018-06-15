@@ -36,6 +36,10 @@
         <activity android:name=".ui.SimulationDataActivity"
             android:screenOrientation="portrait"/>
 
+        <!--竖直ViewPager-->
+        <activity android:name=".ui.VerticalViewPagerActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

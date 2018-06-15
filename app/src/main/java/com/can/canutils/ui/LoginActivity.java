@@ -1,6 +1,6 @@
 package com.can.canutils.ui;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +10,7 @@ import com.can.mvp.base.BaseActivity;
 import com.can.mvp.mvps.models.BaseModel;
 import com.can.mvp.mvps.presenters.LoginPresenter;
 import com.can.mvp.mvps.views.LoginView;
+import com.can.mvp.utils.ActivityManagerUtils;
 import com.can.mvp.views.BindView;
 
 /**
@@ -32,15 +33,15 @@ public class LoginActivity extends BaseActivity implements LoginView {
         return com.can.mvp.R.layout.activity_login;
     }
 
+
     @Override
-    public void initData() {
-        super.initData();
+    public void initData(Bundle bundle) {
         presenter = new LoginPresenter(this,new BaseModel(mCompositeSubscription));
     }
 
+
     @Override
     public void setClick(View view) {
-        super.setClick(view);
         switch (view.getId()){
             case com.can.mvp.R.id.btn_submit:
                 presenter.login(et_name.getText().toString().trim(),et_password.getText().toString().trim());
@@ -77,7 +78,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void navigateToHome() {
         Toast.makeText(this,"登录成功",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this,HomeActivity.class);
-        startActivity(intent);
+        ActivityManagerUtils.getInstance().openActivity(this,SimulationDataActivity.class);
     }
 }

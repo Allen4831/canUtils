@@ -15,14 +15,14 @@ import com.can.mvp.views.BindView;
 
 public class NavigationActivity extends BaseActivity {
 
-    @BindView(id = R.id.tv_home,click = true)
-    private TextView tv_home;
     @BindView(id = R.id.tv_login,click = true)
     private TextView tv_login;
     @BindView(id = R.id.tv_qrcode,click = true)
     private TextView tv_qrcode;
     @BindView(id = R.id.tv_simulation_data,click = true)
     private TextView tv_simulation_data;
+    @BindView(id = R.id.tv_vertical_viewpager,click = true)
+    private TextView tv_vertical_viewpager;
 
     @Override
     public int getLayoutId() {
@@ -31,10 +31,7 @@ public class NavigationActivity extends BaseActivity {
 
     @Override
     public void setClick(View view) {
-        switch (view.getId()){//首页
-            case R.id.tv_home:
-                ActivityManagerUtils.getInstance().openActivity(this,HomeActivity.class);
-                break;
+        switch (view.getId()){
             case R.id.tv_login://登录
                 ActivityManagerUtils.getInstance().openActivity(this,LoginActivity.class);
                 break;
@@ -43,6 +40,9 @@ public class NavigationActivity extends BaseActivity {
                 break;
             case R.id.tv_simulation_data://模拟请求数据
                 ActivityManagerUtils.getInstance().openActivity(this,SimulationDataActivity.class);
+                break;
+            case R.id.tv_vertical_viewpager://竖直ViewPager
+                ActivityManagerUtils.getInstance().openActivity(this, VerticalViewPagerActivity.class);
                 break;
         }
     }
