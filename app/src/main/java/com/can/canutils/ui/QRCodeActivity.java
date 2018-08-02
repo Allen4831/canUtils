@@ -80,7 +80,7 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView, SureOrCa
                 int screenHeight = ll_container.getRootView().getHeight();
                 int softHeight = screenHeight - rect.bottom;
                 if(softHeight>140){
-                    scrollHeight = sc[1]-btn_qrcode.getHeight()-(screenHeight-softHeight)+10;
+                    scrollHeight = sc[1]-btn_qrcode.getHeight()-(screenHeight-softHeight);
                     if(ll_container.getScrollY()!=scrollHeight&&scrollHeight>0){
 //                        ll_container.scrollTo(0,scrollHeight);
                         scrollToPos(0,scrollHeight);
