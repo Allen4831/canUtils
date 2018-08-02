@@ -1,15 +1,21 @@
 package com.can.canutils.ui;
 
 import android.Manifest;
+import android.animation.ValueAnimator;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
+import com.can.canutils.R;
 import com.can.canutils.dialogs.SureOrCancleDialog;
 import com.can.mvp.base.BaseActivity;
 import com.can.mvp.mvps.models.BaseModel;
@@ -32,6 +38,11 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView, SureOrCa
     private Button btn_qrcode;
     @BindView(id = com.can.mvp.R.id.iv_qrcode,click = true)
     private ImageView iv_qrcode;
+    @BindView(id = R.id.sv)
+    private ScrollView sv;
+    @BindView(id = R.id.ll_container)
+    private LinearLayout ll_container;
+
 
 
     private QRCodePresenter presenter;
@@ -48,6 +59,53 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView, SureOrCa
         super.initData(bundle);
         presenter = new QRCodePresenter(this,new BaseModel(mCompositeSubscription));
         dialog = new SureOrCancleDialog(this, com.can.mvp.R.style.style_sureOrCancleDialog,this);
+    }
+
+    @Override
+    public void initView(View view) {
+        super.initView(view);
+
+        ll_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            private int [] sc;
+            private int scrollHeight;
+
+            @Override
+            public void onGlobalLayout() {
+                Rect rect = new Rect();
+                ll_container.getWindowVisibleDisplayFrame(rect);
+                if(sc==null){
+                    sc = new int[2];
+                    btn_qrcode.getLocationOnScreen(sc);
+                }
+                int screenHeight = ll_container.getRootView().getHeight();
+                int softHeight = screenHeight - rect.bottom;
+                if(softHeight>140){
+                    scrollHeight = sc[1]-btn_qrcode.getHeight()-(screenHeight-softHeight)+10;
+                    if(ll_container.getScrollY()!=scrollHeight&&scrollHeight>0){
+//                        ll_container.scrollTo(0,scrollHeight);
+                        scrollToPos(0,scrollHeight);
+                    }
+                }else{
+                    if(ll_container.getScrollY()!=0){
+//                        ll_container.scrollTo(scrollHeight,0);
+                        scrollToPos(scrollHeight,0);
+                    }
+                }
+            }
+        });
+
+    }
+
+    private void scrollToPos(int start, int end) {
+        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+        animator.setDuration(250);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                ll_container.scrollTo(0, (Integer) valueAnimator.getAnimatedValue());
+            }
+        });
+        animator.start();
     }
 
     @Override

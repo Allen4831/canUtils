@@ -30,7 +30,8 @@
 
         <!--生成二维码-->
         <activity android:name=".ui.QRCodeActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            />
 
         <!--模拟请求数据-->
         <activity android:name=".ui.SimulationDataActivity"
