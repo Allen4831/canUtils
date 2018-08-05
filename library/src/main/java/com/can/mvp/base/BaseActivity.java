@@ -1,6 +1,10 @@
 package com.can.mvp.base;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -8,11 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -48,7 +48,7 @@ import static com.can.mvp.application.BaseApplication.getActivityManager;
  *         7.onActivityResult : Fragment回调
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements IBaseModel.IBaseRefreshInterface,IBaseView,View.OnClickListener, BaseView {
+public abstract class BaseActivity extends Activity implements IBaseModel.IBaseRefreshInterface,IBaseView,View.OnClickListener, BaseView {
 
     public BaseDataManager manager;
     public CompositeSubscription mCompositeSubscription;
@@ -136,7 +136,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseMod
      * @param fragment
      */
     public void changeFragment(int id,Fragment fragment){
-        FragmentManager manager = getSupportFragmentManager();
+        FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(id, fragment);
         transaction.commit();
@@ -146,7 +146,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseMod
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //获取Fragment管理类
-        FragmentManager manager=getSupportFragmentManager();
+        FragmentManager manager=getFragmentManager();
         //遍历Fragments
         for(int i=0;i<manager.getFragments().size();i++) {
             Fragment fragment=manager.getFragments().get(i);

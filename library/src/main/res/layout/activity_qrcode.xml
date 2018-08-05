@@ -1,80 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_white"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-
+    android:id="@+id/sv"
     >
 
-    <ScrollView
-        android:id="@+id/sv"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fadeScrollbars="false"
-        android:scrollbars="none"
-        >
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        android:id="@+id/ll_container">
 
 
-
-            <LinearLayout
-                android:id="@+id/ll_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:text="输入框固定在键盘上方"
-                    android:gravity="center"
-                    android:textSize="18sp"
-                    android:textColor="@color/color_black"
-                    />
-
-                <EditText
-                    android:id="@+id/et_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:hint="请输入内容"
-                    android:gravity="center_vertical"
-                    android:singleLine="true"
-                    android:padding="10dp"
-                    android:background="@drawable/drawable_d6d6d6_20"
-                    android:textSize="16sp"
-                    android:textColor="@color/color_black"
-                    />
-
-                <Button
-                    android:id="@+id/btn_qrcode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="生成二维码"
-                    android:background="@drawable/drawable_d6d6d6_20"
-                    android:layout_marginTop="10dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/color_black"
-                    />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_app_logo"
+        android:scaleType="fitXY"
+        />
 
 
-            <ImageView
-                android:id="@+id/iv_qrcode"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:layout_marginBottom="50dp"
-                android:adjustViewBounds="true"
-                android:visibility="gone"
-                />
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入内容"
+        android:minHeight="30dp"
+        android:maxHeight="60dp"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:background="@drawable/drawable_d6d6d6_20"
+        android:textSize="16sp"
+        android:textColor="@color/color_black"
+        android:scrollbars="vertical"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_app_logo"
+        android:scaleType="fitXY"
+        />
+    </LinearLayout>
 
-        </LinearLayout>
 
-    </ScrollView>
-
-
-
-
-</LinearLayout>
+</ScrollView>
