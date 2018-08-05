@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:fitsSystemWindows="true"
+
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:id="@+id/ll_container">
@@ -25,22 +25,31 @@
         />
 
 
-    <EditText
-        android:id="@+id/et_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入内容"
-        android:minHeight="30dp"
-        android:maxHeight="60dp"
-        android:gravity="center_vertical"
-        android:padding="10dp"
-        android:background="@drawable/drawable_d6d6d6_20"
-        android:textSize="16sp"
-        android:textColor="@color/color_black"
-        android:scrollbars="vertical"
-        android:layout_centerInParent="true"
-        android:layout_margin="10dp"
-        />
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:background="@drawable/drawable_d6d6d6_20"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入内容"
+                android:minHeight="30dp"
+                android:maxHeight="60dp"
+                android:paddingLeft="10dp"
+                android:gravity="left|center_vertical"
+                android:textSize="16sp"
+                android:background="@null"
+                android:textColor="@color/color_black"
+                android:scrollbars="vertical"
+                android:layout_centerInParent="true"
+                />
+
+        </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

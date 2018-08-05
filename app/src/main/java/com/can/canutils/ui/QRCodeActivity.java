@@ -32,6 +32,8 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView {
     private LinearLayout ll_container;
     @BindView(id = R.id.sv)
     private ScrollView sv;
+    @BindView(id = R.id.ll_content)
+    private LinearLayout ll_content;
 
 
     private QRCodePresenter presenter;
@@ -60,21 +62,23 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView {
             public void onGlobalLayout() {
                 Rect rect = new Rect();
                 ll_container.getWindowVisibleDisplayFrame(rect);
-                sc = new int[2];
-                et_content.getLocationOnScreen(sc);
+                if(sc==null){
+                    sc = new int[2];
+                    ll_content.getLocationInWindow(sc);
+                }
                 int screenHeight = ll_container.getRootView().getHeight();
                 int softHeight = screenHeight - rect.bottom;
                 if(softHeight>150){
-                    flag = true;
-                    scrollHeight = sc[1]-softHeight-ll_container.getHeight();
-                    if(ll_container.getScrollY()!=scrollHeight&&scrollHeight>0){
-                        scrollToPos(0,scrollHeight);
+                    scrollHeight = sc[1]-softHeight-ll_content.getHeight();
+                    if(ll_container.getScrollY()<scrollHeight){
+                        ll_container.scrollTo(0,scrollHeight);
                     }
+                    flag = true;
                 }else{
-                    flag = false;
                     if(ll_container.getScrollY()!=0){
                         ll_container.scrollTo(0,0);
                     }
+                    flag = false;
                 }
             }
         });
