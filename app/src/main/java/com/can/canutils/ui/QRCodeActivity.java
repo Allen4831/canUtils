@@ -47,6 +47,7 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView {
         presenter = new QRCodePresenter(this,new BaseModel(mCompositeSubscription));
     }
 
+    private boolean flag;
     @Override
     public void initView(View view) {
         super.initView(view);
@@ -63,27 +64,35 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView {
                 et_content.getLocationOnScreen(sc);
                 int screenHeight = ll_container.getRootView().getHeight();
                 int softHeight = screenHeight - rect.bottom;
-                if(softHeight>140){
-                    scrollHeight = sc[1]-softHeight-et_content.getHeight();
+                if(softHeight>150){
+                    flag = true;
+                    scrollHeight = sc[1]-softHeight-ll_container.getHeight();
                     if(ll_container.getScrollY()!=scrollHeight&&scrollHeight>0){
-//                        ll_container.scrollTo(0,scrollHeight);
                         scrollToPos(0,scrollHeight);
                     }
                 }else{
+                    flag = false;
                     if(ll_container.getScrollY()!=0){
-//                        ll_container.scrollTo(scrollHeight,0);
                         ll_container.scrollTo(0,0);
                     }
                 }
             }
         });
 
+        sv.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(flag)
+                    return true;
+                else
+                   return false;
+            }
+        });
+
         et_content.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                //重写onTouch()事件,在事件里通过requestDisallowInterceptTouchEvent(boolean)
-                //方法来设置父类的不可用,true表示父类的不可用
-                if (event.getAction() == MotionEvent.ACTION_UP) {
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     sv.requestDisallowInterceptTouchEvent(false);
                 } else {
                     sv.requestDisallowInterceptTouchEvent(true);
