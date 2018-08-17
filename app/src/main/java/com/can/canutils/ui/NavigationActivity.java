@@ -23,7 +23,8 @@ public class NavigationActivity extends BaseActivity {
     private TextView tv_simulation_data;
     @BindView(id = R.id.tv_vertical_viewpager,click = true)
     private TextView tv_vertical_viewpager;
-
+    @BindView(id = R.id.tv_enter_small_window,click = true)
+    private TextView tv_enter_small_window;
     @Override
     public int getLayoutId() {
         return R.layout.activity_navigation;
@@ -44,6 +45,10 @@ public class NavigationActivity extends BaseActivity {
             case R.id.tv_vertical_viewpager://竖直ViewPager
                 ActivityManagerUtils.getInstance().openActivity(this, VerticalViewPagerActivity.class);
                 break;
+            case R.id.tv_enter_small_window://进入小窗口
+                ActivityManagerUtils.getInstance().openActivity(this,SuspensionWindowActivity.class);
+                break;
+
         }
     }
 }

@@ -2,12 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.can.canutils">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/img_app_logo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/MyAppTheme">
 
         <activity android:name=".ui.NavigationActivity"
             android:screenOrientation="portrait">
@@ -41,6 +43,9 @@
         <activity android:name=".ui.VerticalViewPagerActivity"
             android:screenOrientation="portrait"/>
 
+        <!--悬浮窗-->
+        <activity android:name=".ui.SuspensionWindowActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
