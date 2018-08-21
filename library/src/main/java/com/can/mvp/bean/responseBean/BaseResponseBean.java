@@ -11,4 +11,6 @@ import java.io.Serializable;
 
 public class BaseResponseBean implements Serializable {
 
+
+
 }

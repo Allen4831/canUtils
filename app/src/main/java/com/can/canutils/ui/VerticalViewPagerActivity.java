@@ -36,7 +36,6 @@ public class VerticalViewPagerActivity extends BaseActivity {
     @Override
     public void initData(Bundle bundle) {
         BaseRequestBean bean = new BaseRequestBean();
-        bean.setRequest_url("http://www.wanandroid.com/");
         bean.setObservable(manager!=null?((DataManager)manager).getHomeArticleList(0):null);
         requestData(bean);
     }
