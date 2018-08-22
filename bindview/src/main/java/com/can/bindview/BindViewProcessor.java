@@ -62,17 +62,15 @@ public class BindViewProcessor extends AbstractProcessor {
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
 //        mMessager.printMessage(Diagnostic.Kind.ERROR, "BindViewProcessor.process");
         mProxyMap.clear();
+        //遍历所有被BindView过的元素
         Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(BindView.class);
         //收集信息
         for(Element element : elements){
             if(!checkAnnotationValid(element,BindView.class)){
-                return false;
+                return true;
             }
             VariableElement variableElement = (VariableElement) element;
-            mMessager.printMessage(Diagnostic.Kind.NOTE,"variableElement :"+variableElement.toString());
             TypeElement typeElement = (TypeElement) variableElement.getEnclosingElement();
-            mMessager.printMessage(Diagnostic.Kind.NOTE,"typeElement :"+typeElement.toString());
-
             String qualifiedName = typeElement.getQualifiedName().toString();
             ProxyInfo proxyInfo = mProxyMap.get(qualifiedName);
             if(proxyInfo==null){
