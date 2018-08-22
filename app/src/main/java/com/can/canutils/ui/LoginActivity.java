@@ -1,17 +1,22 @@
 package com.can.canutils.ui;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.can.bindview.BindView;
+import com.can.bindview_api.BindViewManger;
+import com.can.canutils.R;
 import com.can.mvp.base.BaseActivity;
 import com.can.mvp.mvps.models.BaseModel;
 import com.can.mvp.mvps.presenters.LoginPresenter;
 import com.can.mvp.mvps.views.LoginView;
 import com.can.mvp.utils.ActivityManagerUtils;
-import com.can.mvp.views.BindView;
+
+
 
 /**
  * Created by can on 2018/4/3.
@@ -19,14 +24,20 @@ import com.can.mvp.views.BindView;
 
 public class LoginActivity extends BaseActivity implements LoginView {
 
-    @BindView(id = com.can.mvp.R.id.et_name)
-    private EditText et_name;
-    @BindView(id = com.can.mvp.R.id.et_password)
-    private EditText et_password;
-    @BindView(id = com.can.mvp.R.id.btn_submit,click = true)
-    private Button btn_submit;
+    @BindView(R.id.et_name)
+    EditText et_name;
+    @BindView(R.id.et_password)
+    EditText et_password;
+    @BindView(R.id.btn_submit)
+    Button btn_submit;
 
     LoginPresenter presenter;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        BindViewManger.bindView(this);
+    }
 
     @Override
     public int getLayoutId() {
@@ -43,7 +54,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void setClick(View view) {
         switch (view.getId()){
-            case com.can.mvp.R.id.btn_submit:
+            case R.id.btn_submit:
                 presenter.login(et_name.getText().toString().trim(),et_password.getText().toString().trim());
                 break;
         }

@@ -1,1 +1,1 @@
-include ':app', ':library', ':bindview'
+include ':app', ':library', ':bindview', ':bindview-api'
