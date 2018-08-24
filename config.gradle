@@ -1,0 +1,9 @@
+ext {
+    appId = "com.can.canutils"
+    appVersionCode = 1
+    appVersionName = "1.0"
+
+    defaultCompileSdkVersion = 26
+    defaultMinSdkVersion = 15
+    defaultTargetSdkVersion = 26
+}

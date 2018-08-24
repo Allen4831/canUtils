@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.can.component_demo" >
+
+    <application android:theme="@style/AppTheme">
+        <activity
+            android:name=".DemoActivity"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/bindview" />
             <option value="$PROJECT_DIR$/bindview-api" />
+            <option value="$PROJECT_DIR$/component-demo" />
             <option value="$PROJECT_DIR$/library" />
           </set>
         </option>
