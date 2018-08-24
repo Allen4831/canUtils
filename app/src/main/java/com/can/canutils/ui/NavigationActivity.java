@@ -25,6 +25,8 @@ public class NavigationActivity extends BaseActivity {
     private TextView tv_vertical_viewpager;
     @BindView(id = R.id.tv_enter_small_window,click = true)
     private TextView tv_enter_small_window;
+    @BindView(id = R.id.tv_recycleview_transparent,click = true)
+    private TextView tv_recycleview_transparent;
     @Override
     public int getLayoutId() {
         return R.layout.activity_navigation;
@@ -48,7 +50,9 @@ public class NavigationActivity extends BaseActivity {
             case R.id.tv_enter_small_window://进入小窗口
                 ActivityManagerUtils.getInstance().openActivity(this,SuspensionWindowActivity.class);
                 break;
-
+            case R.id.tv_recycleview_transparent: //RecycleView透明
+                ActivityManagerUtils.getInstance().openActivity(this,RecycleViewTransparentActivity.class);
+                break;
         }
     }
 }

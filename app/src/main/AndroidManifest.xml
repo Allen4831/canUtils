@@ -46,6 +46,10 @@
         <!--悬浮窗-->
         <activity android:name=".ui.SuspensionWindowActivity"
             android:screenOrientation="portrait"/>
+
+        <!--RecycleView透明-->
+        <activity android:name=".ui.RecycleViewTransparentActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
