@@ -37,6 +37,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BindViewManger.bindView(this);
+        et_name.setText("你好吗");
     }
 
     @Override
