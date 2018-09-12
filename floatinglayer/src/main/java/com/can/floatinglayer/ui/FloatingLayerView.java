@@ -56,10 +56,10 @@ public class FloatingLayerView extends FrameLayout {
         this.mLightView = view;
         this.type = type;
         this.mItemClick = clickListener;
-        init(context, imgRes);
+        init(imgRes);
     }
 
-    private void init(Context context, int imgRes) {
+    private void init(int imgRes) {
         setBackgroundResource(imgRes);
         mPaint = new Paint();
         mPaint.setColor(color);
