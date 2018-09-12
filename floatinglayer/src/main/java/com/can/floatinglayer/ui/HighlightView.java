@@ -7,35 +7,31 @@ import android.graphics.RectF;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-/**
- * Created by hubert
- * <p>
- * Created on 2017/7/27.
- */
 class HighlightView {
 
-    private View mHole;
+    //高亮的view
+    private View mView;
 
     private RectF rectF;
 
-    HighlightView(View mHole) {
-        this.mHole = mHole;
+    HighlightView(View mView) {
+        this.mView = mView;
     }
 
     float getRadius() {
-        if (mHole == null) {
+        if (mView == null) {
             throw new IllegalArgumentException("the highlight view is null!");
         }
-        return Math.max(mHole.getWidth() / 2, mHole.getHeight() / 2) ;
+        return Math.max(mView.getWidth() / 2, mView.getHeight() / 2) ;
     }
 
     RectF getRectF(View target) {
-        if (mHole == null) {
+        if (mView == null) {
             throw new IllegalArgumentException("the highlight view is null!");
         }
         if (rectF == null) {
             rectF = new RectF();
-            Rect locationInView = getLocationInView(target, mHole);
+            Rect locationInView = getLocationInView(target, mView);
             rectF.left = locationInView.left ;
             rectF.top = locationInView.top ;
             rectF.right = locationInView.right  ;

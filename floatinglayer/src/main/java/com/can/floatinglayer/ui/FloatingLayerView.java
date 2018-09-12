@@ -64,15 +64,13 @@ public class FloatingLayerView extends FrameLayout {
         mPaint = new Paint();
         mPaint.setColor(color);
         mPaint.setAntiAlias(true);
+        //图像模式为清除图像模式
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         //设置画笔遮罩滤镜,可以传入BlurMaskFilter或EmbossMaskFilter，前者为模糊遮罩滤镜而后者为浮雕遮罩滤镜
         //这个方法已经被标注为过时的方法了，如果你的应用启用了硬件加速，你是看不到任何阴影效果的
-        mPaint.setMaskFilter(new BlurMaskFilter(1, BlurMaskFilter.Blur.INNER));
+        mPaint.setMaskFilter(new BlurMaskFilter(1, BlurMaskFilter.Blur.SOLID));
         //关闭当前view的硬件加速
-        setLayerType(LAYER_TYPE_SOFTWARE, null);
-        //ViewGroup默认设定为true，会使onDraw方法不执行，如果复写了onDraw(Canvas)方法，需要清除此标记
-        //setWillNotDraw(false);
-
+        setLayerType(LAYER_TYPE_HARDWARE, null);
 
         mPaint2 = new Paint();
         mPaint2.setColor(0xffffff);
@@ -91,10 +89,8 @@ public class FloatingLayerView extends FrameLayout {
                 int y = (int) event.getY();
                 if (region.contains(x,y)){
                     mItemClick.onFloatingClick(type,mLightView,false);//点击高亮区域
-                    //this.setVisibility(GONE);
                 }else{
                     mItemClick.onFloatingClick(type,mLightView,true);//点击背景区域
-                    //this.setVisibility(GONE);
                 }
                 break;
         }
