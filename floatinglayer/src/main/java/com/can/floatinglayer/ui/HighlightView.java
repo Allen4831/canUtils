@@ -12,19 +12,17 @@ import android.view.View;
  * <p>
  * Created on 2017/7/27.
  */
-public class HighlightView {
+class HighlightView {
 
     private View mHole;
-    /**
-     * 高亮相对view的padding
-     */
+
     private RectF rectF;
 
     HighlightView(View mHole) {
         this.mHole = mHole;
     }
 
-    public float getRadius() {
+    float getRadius() {
         if (mHole == null) {
             throw new IllegalArgumentException("the highlight view is null!");
         }
@@ -48,7 +46,7 @@ public class HighlightView {
 
     private static final String FRAGMENT_CON = "NoSaveStateFrameLayout";
 
-    static Rect getLocationInView(View parent, View child) {
+    private static Rect getLocationInView(View parent, View child) {
         if (child == null || parent == null) {
             throw new IllegalArgumentException("parent and child can not be null .");
         }
@@ -79,7 +77,6 @@ public class HighlightView {
                 throw new IllegalArgumentException("the view is not showing in the window!");
             }
 
-            //added by isanwenyu@163.com fix bug #21 the wrong rect user will received in ViewPager
             if (tmp.getParent() != null && (tmp.getParent() instanceof ViewPager)) {
                 tmp = (View) tmp.getParent();
             }
