@@ -35,20 +35,17 @@ public class TestActivity extends BaseActivity implements FloatingLayerView.mIte
     public void setClick(View view) {
         switch (view.getId()){
             case R.id.btn_circle://正圆
-                FloatingLayerView.FloatingLayer.add2Activity(this,R.drawable.group1,R.id.btn_circle,FloatingLayerView.TYPE.TYPE_CIRCLE.ordinal(),this);
+
                 break;
             case R.id.btn_round://椭圆
-                FloatingLayerView.FloatingLayer.add2Activity(this,R.drawable.group1,R.id.btn_round,FloatingLayerView.TYPE.TYPE_ROUND.ordinal(),this);
+
                 break;
         }
     }
 
+
     @Override
-    public void onFloatingClick(int type, View view,boolean isBackClick) {
-        if(isBackClick){ //点击背景
-            FloatingLayerView.FloatingLayer.removeFloatingView(this);
-        }else{//点击高亮处
-            FloatingLayerView.FloatingLayer.removeFloatingView(this);
-        }
+    public void onFloatingClick(Enum type, View view, boolean isBackClick) {
+
     }
 }

@@ -3,6 +3,8 @@ package com.can.floatinglayer.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.DashPathEffect;
@@ -13,71 +15,113 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
+import com.can.floatinglayer.R;
+
 
 /**
  * Created by CAN on 18-8-28.
  * 浮层View
  */
 
+@SuppressLint("ViewConstructor")
 public class FloatingLayerView extends FrameLayout {
 
-    public interface mItemClick{
-        void onFloatingClick(int type,View view,boolean isBackClick);
+    interface mItemClick{
+        void onFloatingClick(Enum type,View view,boolean isBackClick);
     }
 
+    //点击回调
     private mItemClick mItemClick;
 
-    public enum TYPE {
-        TYPE_CIRCLE,
-        TYPE_ROUND,
+    //绘制圈的类型
+    public enum DRAW_TYPE {
+        TYPE_CIRCLE, //圆
+        TYPE_ROUND,//椭圆
     }
 
-    private Paint mPaint; //内圈画笔
-    private Paint mPaint2; //外圈画笔
+    //我知道了位置
+    public enum KNOW_POSITION_TYPE{
+        TYPE_BOTTOM,//底部
+        TYPE_TOP//顶部
+    }
 
-    private final int padding = 10; //内圈和外圈间距
-    private final int color = 0x80ffffff; //整个圈背景色
+    //背景类型
+    public enum BG_TYPE{
+        TYPE_1,
+        TYPE_2,
+        TYPE_3,
+        TYPE_4,
+        TYPE_5,
+    }
 
-    private int type = 0; //绘制类型
+    private Paint mPaintIn; //内圈画笔
+    private Paint mPaintInOut; //外圈画笔
 
-    private View mLightView;
+    private Enum mDrawType ; //绘制类型
+    private Enum mBgType ;//背景类型
+    private Enum mknowPositionType ;//我知道了位置
 
-    private RectF rectF1 ;
+    private View mLightView;//高亮的view
 
-    public FloatingLayerView(Context context, int imgRes, View view, int type,mItemClick clickListener) {
+
+    private Region mRegionLight = new Region(); //高亮的点击区域
+    private Region mRegionKnow = new Region() ; //我知道了的点击区域
+
+    private static Bitmap mBgBitmap ; //描述背景图片
+
+    private static Bitmap mKnowBitmap ; //我知道了按钮图片
+
+    public FloatingLayerView(Context context, View view, Enum drawType, Enum bgType, Enum knowPositionType, mItemClick clickListener) {
         super(context);
         this.mLightView = view;
-        this.type = type;
+        this.mDrawType = drawType;
+        this.mBgType = bgType;
+        this.mknowPositionType = knowPositionType;
         this.mItemClick = clickListener;
-        init(imgRes);
+        init();
     }
 
-    private void init(int imgRes) {
-        setBackgroundResource(imgRes);
-        mPaint = new Paint();
-        mPaint.setColor(color);
-        mPaint.setAntiAlias(true);
+    private void init() {
+        setBackgroundColor(0xb3000000);//设置整个浮层背景颜色(这里为透明度60%)
+        int color = 0x80ffffff;
+        mPaintIn = new Paint();
+        mPaintIn.setColor(color);
+        mPaintIn.setAntiAlias(true);
         //图像模式为清除图像模式
-        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        mPaintIn.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         //设置画笔遮罩滤镜,可以传入BlurMaskFilter或EmbossMaskFilter，前者为模糊遮罩滤镜而后者为浮雕遮罩滤镜
         //这个方法已经被标注为过时的方法了，如果你的应用启用了硬件加速，你是看不到任何阴影效果的
-        mPaint.setMaskFilter(new BlurMaskFilter(1, BlurMaskFilter.Blur.SOLID));
+        mPaintIn.setMaskFilter(new BlurMaskFilter(1, BlurMaskFilter.Blur.SOLID));
         //关闭当前view的硬件加速
         setLayerType(LAYER_TYPE_HARDWARE, null);
 
-        mPaint2 = new Paint();
-        mPaint2.setColor(0xffffff);
-        mPaint2.setStyle(Paint.Style.STROKE);
-        mPaint2.setStrokeWidth(3);
-        mPaint2.setAntiAlias(true);
-        mPaint2.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        //保证调用onDraw()
+        setWillNotDraw(false);
+
+        mPaintInOut = new Paint();
+        mPaintInOut.setColor(0xffffff);
+        mPaintInOut.setStyle(Paint.Style.STROKE);
+        mPaintInOut.setStrokeWidth(3);
+        mPaintInOut.setAntiAlias(true);
+        mPaintInOut.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+
+        if(mBgType== BG_TYPE.TYPE_1){
+            mBgBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_floatingflayer_type_2);
+        }else if(mBgType== BG_TYPE.TYPE_2){
+            mBgBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_floatingflayer_type_1);
+        }else if(mBgType== BG_TYPE.TYPE_3){
+            mBgBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_floatingflayer_type_5);
+        }else if(mBgType== BG_TYPE.TYPE_4){
+            mBgBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_floatingflayer_type_3);
+        }else if(mBgType== BG_TYPE.TYPE_5){
+            mBgBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_floatingflayer_type_4);
+        }
+        mKnowBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_floatingflayer_know);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -87,76 +131,120 @@ public class FloatingLayerView extends FrameLayout {
             case MotionEvent.ACTION_UP:
                 int x = (int) event.getX();
                 int y = (int) event.getY();
-                if (region.contains(x,y)){
-                    mItemClick.onFloatingClick(type,mLightView,false);//点击高亮区域
+                if (mRegionLight.contains(x,y)||mRegionKnow.contains(x,y)){
+                    mItemClick.onFloatingClick(mBgType,mLightView,false);//点击高亮区域 或者 '我知道了'按钮
                 }else{
-                    mItemClick.onFloatingClick(type,mLightView,true);//点击背景区域
+                    mItemClick.onFloatingClick(mBgType,mLightView,true);//点击背景区域
                 }
                 break;
         }
         return true;
     }
 
-    Region region = new Region();
-
     @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         HighlightView highlightView = new HighlightView(mLightView);
-        RectF rectF = highlightView.getRectF((ViewGroup) getParent());
-        rectF1 = new RectF(rectF.left - padding, rectF.top - padding,
-                rectF.right + padding, rectF.bottom + padding);
+        int rect_padding = 10;//间距
+        RectF rectIn = highlightView.getRectF(rect_padding);//内圈RectF
+        int padding = 10;//外圈与内圈的距离
+        RectF rectFOut = new RectF(rectIn.left - padding, rectIn.top - padding,
+                rectIn.right + padding, rectIn.bottom + padding);//外圈RectF
 
+        //绘制虚线
         PathEffect dashPathEffect = new DashPathEffect(new float[]{10, 3}, 1);
-        mPaint2.setPathEffect(dashPathEffect);
+        mPaintInOut.setPathEffect(dashPathEffect);
 
-        if (type == TYPE.TYPE_CIRCLE.ordinal()) {
-            canvas.drawCircle((rectF.right-rectF.left)/2+rectF.left, (rectF.bottom-rectF.top)/2+rectF.top, Math.max(rectF.width()/2,rectF.height()/2), mPaint);
-            canvas.drawCircle((rectF1.right-rectF1.left)/2+rectF1.left, (rectF1.bottom-rectF1.top)/2+rectF1.top,Math.max(rectF1.width()/2,rectF1.height()/2), mPaint2);
-        } else if (type == TYPE.TYPE_ROUND.ordinal()) {
-            canvas.drawRoundRect(rectF, highlightView.getRadius(), highlightView.getRadius(), mPaint);
-            canvas.drawRoundRect(rectF1, highlightView.getRadius(), highlightView.getRadius(), mPaint2);
+        if (mDrawType == DRAW_TYPE.TYPE_CIRCLE) {//圆
+            canvas.drawCircle((rectIn.right-rectIn.left)/2+rectIn.left, (rectIn.bottom-rectIn.top)/2+rectIn.top, Math.max(rectIn.width()/2,rectIn.height()/2), mPaintIn);
+            canvas.drawCircle((rectFOut.right- rectFOut.left)/2+ rectFOut.left, (rectFOut.bottom- rectFOut.top)/2+ rectFOut.top, Math.max(rectFOut.width()/2, rectFOut.height()/2), mPaintInOut);
+        } else if (mDrawType == DRAW_TYPE.TYPE_ROUND) {//椭圆
+            canvas.drawRoundRect(rectIn, highlightView.getRadius(), highlightView.getRadius(), mPaintIn);
+            canvas.drawRoundRect(rectFOut, highlightView.getRadius(), highlightView.getRadius(), mPaintInOut);
         }
-        Rect rect = new Rect((int) rectF1.left,(int) rectF1.top,(int) rectF1.right,(int) rectF1.bottom);
-        region.set(rect);
+
+        mRegionLight.set(rectF2Rect(rectFOut));
+
+        Paint paint = new Paint();
+
+        Rect rectKnow = new Rect();
+        if(mknowPositionType== KNOW_POSITION_TYPE.TYPE_TOP){ //我知道了-按钮在上方
+            canvas.drawBitmap(mBgBitmap,(getWidth()-mBgBitmap.getWidth())/2,rectFOut.top-mBgBitmap.getHeight(),paint);
+            canvas.drawBitmap(mKnowBitmap,(getWidth()-mKnowBitmap.getWidth())/2,rectFOut.top-mBgBitmap.getHeight()-mKnowBitmap.getHeight()*2,paint);
+            rectKnow.left =  (getWidth()-mKnowBitmap.getWidth())/2;
+            rectKnow.right = (getWidth()-mKnowBitmap.getWidth())/2 + mKnowBitmap.getWidth();
+            rectKnow.top = (int) (rectFOut.top-mBgBitmap.getHeight()-mKnowBitmap.getHeight()*2);
+            rectKnow.bottom = (int) (rectFOut.top-mBgBitmap.getHeight()-mKnowBitmap.getHeight());
+        }else if(mknowPositionType== KNOW_POSITION_TYPE.TYPE_BOTTOM){//我知道了-按钮在下方
+            canvas.drawBitmap(mBgBitmap,(getWidth()-mBgBitmap.getWidth())/2,rectFOut.bottom,paint);
+            canvas.drawBitmap(mKnowBitmap,(getWidth()-mKnowBitmap.getWidth())/2,rectFOut.bottom+mBgBitmap.getHeight()+mKnowBitmap.getHeight(),paint);
+            rectKnow.left =  (getWidth()-mKnowBitmap.getWidth())/2;
+            rectKnow.right = (getWidth()-mKnowBitmap.getWidth())/2 + mKnowBitmap.getWidth();
+            rectKnow.top = (int) (rectFOut.bottom+mBgBitmap.getHeight()+mKnowBitmap.getHeight());
+            rectKnow.bottom = (int) (rectFOut.bottom+mBgBitmap.getHeight()+mKnowBitmap.getHeight()*2);
+        }
+        mRegionKnow.set(rectKnow);
+
+        //recycleBitmap();
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-
+    //释放bitmap
+    public static void recycleBitmap(){
+        if(mBgBitmap!=null&&!mBgBitmap.isRecycled()){
+            mBgBitmap.recycle();
+            mBgBitmap = null;
+        }
+        if(mKnowBitmap!=null&&!mKnowBitmap.isRecycled()){
+            mKnowBitmap.recycle();
+            mKnowBitmap = null;
+        }
     }
 
-    public FloatingLayerView(@NonNull Context context) {
-        super(context);
+    private Rect rectF2Rect(RectF rectF){
+        if(rectF==null){
+            throw new IllegalArgumentException("the rectF is null!");
+        }
+        return new Rect((int) rectF.left,(int) rectF.top,(int) rectF.right,(int) rectF.bottom);
     }
 
-    public FloatingLayerView(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-    }
 
-    public FloatingLayerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
+    public static class FloatingLayer {
 
-    private static int mIndex = 0; //下标View
-
-
-    static class FloatingLayer {
-        static void add2Activity(Activity activity, int imgRes, int viewId, final int type, final mItemClick clickListener) {
+        @SuppressLint("StaticFieldLeak")
+        private static FloatingLayerView frameLayout;
+        private static final String VIEW_TAG = "view_tag";
+        //添加浮层
+        public static void add2Activity(Activity activity, View view, Enum drawType, Enum bgType, Enum knowPostionType, mItemClick clickListener) {
+            if(activity==null||view==null||drawType==null||bgType==null||knowPostionType==null)
+                return;
             ViewGroup viewGroup = (ViewGroup) activity.getWindow().getDecorView();
-            View lightView = viewGroup.findViewById(viewId);
-            FrameLayout fb = new FloatingLayerView(activity, imgRes, lightView, type,clickListener);
+            frameLayout = new FloatingLayerView(activity, view,drawType, bgType, knowPostionType,clickListener);
             ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            fb.setLayoutParams(layoutParams);
-            mIndex = viewGroup.getChildCount();
-            viewGroup.addView(fb,mIndex);
+            frameLayout.setLayoutParams(layoutParams);
+            frameLayout.setTag(VIEW_TAG);
+            viewGroup.addView(frameLayout);
         }
-        static void removeFloatingView(Activity activity){
+
+        //是否有浮层
+        public static boolean hasFloatingView(Activity activity){
             ViewGroup viewGroup = (ViewGroup) activity.getWindow().getDecorView();
-            if(viewGroup!=null&&viewGroup.getChildCount()==mIndex+1){
-                viewGroup.removeViewAt(mIndex);
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                View viewchild = viewGroup.getChildAt(i);
+                if(viewchild.getTag() != null && String.valueOf(viewchild.getTag()).equals(VIEW_TAG)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //移除浮层
+        public static void removeFloatingView(Activity activity){
+            ViewGroup viewGroup = (ViewGroup) activity.getWindow().getDecorView();
+            if(viewGroup!=null&&frameLayout!=null){
+                recycleBitmap();
+                viewGroup.removeView(frameLayout);
+                frameLayout = null;
             }
         }
     }

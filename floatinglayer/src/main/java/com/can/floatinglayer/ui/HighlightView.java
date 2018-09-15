@@ -1,10 +1,7 @@
 package com.can.floatinglayer.ui;
 
-import android.app.Activity;
-import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 
 class HighlightView {
@@ -22,16 +19,16 @@ class HighlightView {
         if (mView == null) {
             throw new IllegalArgumentException("the highlight view is null!");
         }
-        return Math.max(mView.getWidth() / 2, mView.getHeight() / 2) ;
+        return 90 ;
     }
 
-    RectF getRectF(View target) {
+    RectF getRectF(int padding) {
         if (mView == null) {
             throw new IllegalArgumentException("the highlight view is null!");
         }
         if (rectF == null) {
             rectF = new RectF();
-            Rect locationInView = getLocationInView(target, mView);
+            Rect locationInView = getLocationInView(padding,mView);
             rectF.left = locationInView.left ;
             rectF.top = locationInView.top ;
             rectF.right = locationInView.right  ;
@@ -40,45 +37,18 @@ class HighlightView {
         return rectF;
     }
 
-    private static final String FRAGMENT_CON = "NoSaveStateFrameLayout";
 
-    private static Rect getLocationInView(View parent, View child) {
-        if (child == null || parent == null) {
-            throw new IllegalArgumentException("parent and child can not be null .");
+    private static Rect getLocationInView(int padding , View child) {
+        if (child == null ) {
+            throw new IllegalArgumentException("view can not be null .");
         }
-
-        View decorView = null;
-        Context context = child.getContext();
-        if (context instanceof Activity) {
-            decorView = ((Activity) context).getWindow().getDecorView();
-        }
-
         Rect result = new Rect();
-        Rect tmpRect = new Rect();
-
-        View tmp = child;
-
-        if (child == parent) {
-            child.getHitRect(result);
-            return result;
-        }
-        while (tmp != decorView && tmp != parent) {
-            tmp.getHitRect(tmpRect);
-            if (!tmp.getClass().equals(FRAGMENT_CON)) {
-                result.left += tmpRect.left;
-                result.top += tmpRect.top;
-            }
-            tmp = (View) tmp.getParent();
-            if (tmp == null) {
-                throw new IllegalArgumentException("the view is not showing in the window!");
-            }
-
-            if (tmp.getParent() != null && (tmp.getParent() instanceof ViewPager)) {
-                tmp = (View) tmp.getParent();
-            }
-        }
-        result.right = result.left + child.getMeasuredWidth();
-        result.bottom = result.top + child.getMeasuredHeight();
+        int[] locations = new int[2];
+        child.getLocationOnScreen(locations);
+        result.left = locations[0]-padding;
+        result.top = locations[1]-padding;
+        result.right = locations[0] + child.getMeasuredWidth()+padding;
+        result.bottom = locations[1] + child.getMeasuredHeight()+padding;
         return result;
     }
 
