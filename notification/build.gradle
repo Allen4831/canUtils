@@ -1,15 +1,17 @@
-apply plugin: 'com.android.library'
+if(isBuildModule.toBoolean()){
+    apply plugin: 'com.android.application'
+}else{
+    apply plugin: 'com.android.library'
+}
+
 
 android {
-    compileSdkVersion 26
-
-
-
+    compileSdkVersion defaultCompileSdkVersion
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion defaultMinSdkVersion
+        targetSdkVersion defaultTargetSdkVersion
+        versionCode appVersionCode
+        versionName appVersionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -22,13 +24,33 @@ android {
         }
     }
 
+    sourceSets{
+        main{
+            if(isBuildModule.toBoolean()){
+                manifest.srcFile  'src/main/module/AndroidManifest.xml'
+            }else{
+                manifest.srcFile  'src/main/AndroidManifest.xml'
+                java {
+                    exclude 'debug/**'
+                }
+            }
+        }
+    }
+
+}
+
+
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:23.3.0'
+    implementation project(path: ':library')
 }
