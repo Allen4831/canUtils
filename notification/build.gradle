@@ -50,7 +50,6 @@ allprojects {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:23.3.0'
-    implementation project(path: ':library')
+    implementation project(':library')
+
 }

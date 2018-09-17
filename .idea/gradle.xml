@@ -12,9 +12,11 @@
             <option value="$PROJECT_DIR$/bindview" />
             <option value="$PROJECT_DIR$/bindview-api" />
             <option value="$PROJECT_DIR$/component-demo" />
+            <option value="$PROJECT_DIR$/eventbus" />
             <option value="$PROJECT_DIR$/floatinglayer" />
             <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/notification" />
+            <option value="$PROJECT_DIR$/resource" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

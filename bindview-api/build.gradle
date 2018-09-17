@@ -26,7 +26,5 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation 'com.android.support:appcompat-v7:23.3.0'
     implementation project(':bindview')
 }

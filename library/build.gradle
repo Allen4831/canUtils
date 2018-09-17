@@ -27,32 +27,22 @@ android {
         }
     }
     dependencies {
-        compile fileTree(dir: 'libs', include: ['*.jar'])
-        //noinspection GradleCompatible
-        implementation 'com.android.support:appcompat-v7:23.3.0'
-        testCompile 'junit:junit:4.12'
-        //导入kotlin
-//        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-//        compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-        // Okhttp库
-//        compile 'com.squareup.okhttp3:okhttp:3.1.2'
+        api fileTree(dir: 'libs', include: ['*.jar'])
+        testApi 'junit:junit:4.12'
 
-        //导入recycleview
-        implementation 'com.android.support:recyclerview-v7:23.3.0'
-        //各种加载中的动画效果
-        implementation 'com.github.ybq:Android-SpinKit:1.1.0'
-        //导入Tablayout
-        implementation 'com.android.support:design:23.3.0'
-        //二维码库
-        implementation 'com.google.zxing:core:3.2.1'
-        //网络请求框架Retrofit
-        implementation 'com.squareup.retrofit2:retrofit:2.1.0'
-        //gson
-        implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
-        //RxJava
-        implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-        //RxAndroid
-        implementation 'io.reactivex:rxandroid:1.2.0'
+        api deps["appcompat-v7"]
+        api deps["recyclerview-v7"]
+        api deps["SpinKit"]
+        api deps["design"]
+        api deps["zxing"]
+        api deps["retrofit"]
+        api deps["gson"]
+        api deps["rxjava"]
+        api deps["rxandroid"]
+
+
+        api project(':resource')
+
     }
 }
 

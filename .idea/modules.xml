@@ -8,10 +8,12 @@
       <module fileurl="file://$PROJECT_DIR$/canUtils.iml" filepath="$PROJECT_DIR$/canUtils.iml" />
       <module fileurl="file://C:\can\myprojects\canUtils\.idea\canUtils.iml" filepath="C:\can\myprojects\canUtils\.idea\canUtils.iml" />
       <module fileurl="file://$PROJECT_DIR$/component-demo/component-demo.iml" filepath="$PROJECT_DIR$/component-demo/component-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eventbus/eventbus.iml" filepath="$PROJECT_DIR$/eventbus/eventbus.iml" />
       <module fileurl="file://$PROJECT_DIR$/floatinglayer/floatinglayer.iml" filepath="$PROJECT_DIR$/floatinglayer/floatinglayer.iml" />
       <module fileurl="file://C:\can\myprojects\canUtils\floatinglayer\floatinglayer.iml" filepath="C:\can\myprojects\canUtils\floatinglayer\floatinglayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/notification/notification.iml" filepath="$PROJECT_DIR$/notification/notification.iml" />
+      <module fileurl="file://$PROJECT_DIR$/resource/resource.iml" filepath="$PROJECT_DIR$/resource/resource.iml" />
     </modules>
   </component>
 </project>

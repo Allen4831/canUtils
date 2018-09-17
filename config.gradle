@@ -6,4 +6,30 @@ ext {
     defaultCompileSdkVersion = 26
     defaultMinSdkVersion = 15
     defaultTargetSdkVersion = 26
+
+    android_support_version = "23.4.0"
+    android_recycleview_version = "23.4.0"
+
+    deps = [
+            "appcompat-v7": "com.android.support:appcompat-v7:${android_support_version}",
+            //导入recycleview
+            "recyclerview-v7": "com.android.support:recyclerview-v7:${android_recycleview_version}",
+            //各种加载中的动画效果
+            "SpinKit": "com.github.ybq:Android-SpinKit:1.1.0",
+            //导入Tablayout
+            "design": "com.android.support:design:23.3.0",
+            //二维码库
+            "zxing": "com.google.zxing:core:3.2.1",
+            //网络请求框架Retrofit
+            "retrofit": "com.squareup.retrofit2:retrofit:2.1.0",
+            //gson
+            "gson": "com.squareup.retrofit2:converter-gson:2.1.0",
+            //RxJava
+            "rxjava": "com.squareup.retrofit2:adapter-rxjava:2.1.0",
+            //RxAndroid
+            "rxandroid": "io.reactivex:rxandroid:1.2.0",
+            //http
+            "okhttp":"com.squareup.okhttp3:logging-interceptor:3.8.0",
+
+    ]
 }
