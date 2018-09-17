@@ -215,7 +215,7 @@ public class FloatingLayerView extends FrameLayout {
         private static FloatingLayerView frameLayout;
         private static final String VIEW_TAG = "view_tag";
         //添加浮层
-        public static void add2Activity(Activity activity, View view, Enum drawType, Enum bgType, Enum knowPostionType, mItemClick clickListener) {
+        static void add2Activity(Activity activity, View view, Enum drawType, Enum bgType, Enum knowPostionType, mItemClick clickListener) {
             if(activity==null||view==null||drawType==null||bgType==null||knowPostionType==null)
                 return;
             ViewGroup viewGroup = (ViewGroup) activity.getWindow().getDecorView();
@@ -230,8 +230,8 @@ public class FloatingLayerView extends FrameLayout {
         public static boolean hasFloatingView(Activity activity){
             ViewGroup viewGroup = (ViewGroup) activity.getWindow().getDecorView();
             for (int i = 0; i < viewGroup.getChildCount(); i++) {
-                View viewchild = viewGroup.getChildAt(i);
-                if(viewchild.getTag() != null && String.valueOf(viewchild.getTag()).equals(VIEW_TAG)) {
+                View mViewChild = viewGroup.getChildAt(i);
+                if(mViewChild.getTag() != null && String.valueOf(mViewChild.getTag()).equals(VIEW_TAG)) {
                     return true;
                 }
             }
@@ -239,7 +239,7 @@ public class FloatingLayerView extends FrameLayout {
         }
 
         //移除浮层
-        public static void removeFloatingView(Activity activity){
+        static void removeFloatingView(Activity activity){
             ViewGroup viewGroup = (ViewGroup) activity.getWindow().getDecorView();
             if(viewGroup!=null&&frameLayout!=null){
                 recycleBitmap();
