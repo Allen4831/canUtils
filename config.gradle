@@ -11,7 +11,6 @@ ext {
     android_recycleview_version = "23.4.0"
 
     kotlin_dir = "src/main/kotlin"
-    kotlin_version = "1.2.70"
 
     dependents = [
             "appcompat-v7"   : "com.android.support:appcompat-v7:${android_support_version}",
