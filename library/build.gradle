@@ -1,7 +1,8 @@
 //apply plugin: 'com.android.application'
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
-
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 group='com.github.xuwennengcan'
 android {
     compileSdkVersion defaultCompileSdkVersion
@@ -13,12 +14,14 @@ android {
         versionName appVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     allprojects {
         repositories {
             maven { url "https://jitpack.io" }
@@ -26,20 +29,28 @@ android {
             maven { url 'https://maven.google.com' }
         }
     }
+
+    sourceSets {
+        main {
+            java.srcDirs += rootProject.ext.kotlin_dir
+        }
+    }
+
     dependencies {
         api fileTree(dir: 'libs', include: ['*.jar'])
         testApi 'junit:junit:4.12'
 
-        api deps["appcompat-v7"]
-        api deps["recyclerview-v7"]
-        api deps["SpinKit"]
-        api deps["design"]
-        api deps["zxing"]
-        api deps["retrofit"]
-        api deps["gson"]
-        api deps["rxjava"]
-        api deps["rxandroid"]
-
+        api dependents["appcompat-v7"]
+        api dependents["recyclerview-v7"]
+        api dependents["SpinKit"]
+        api dependents["design"]
+        api dependents["zxing"]
+        api dependents["retrofit"]
+        api dependents["gson"]
+        api dependents["rxjava"]
+        api dependents["rxandroid"]
+        api dependents["eventbus"]
+        api dependents["kotlin"]
 
         api project(':resource')
 

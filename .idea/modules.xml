@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/basics/basics.iml" filepath="$PROJECT_DIR$/basics/basics.iml" />
       <module fileurl="file://$PROJECT_DIR$/bindview/bindview.iml" filepath="$PROJECT_DIR$/bindview/bindview.iml" />
       <module fileurl="file://$PROJECT_DIR$/bindview-api/bindview-api.iml" filepath="$PROJECT_DIR$/bindview-api/bindview-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/canUtils.iml" filepath="$PROJECT_DIR$/canUtils.iml" />

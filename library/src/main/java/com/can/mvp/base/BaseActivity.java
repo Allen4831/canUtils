@@ -1,6 +1,7 @@
 package com.can.mvp.base;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -8,6 +9,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -38,7 +40,7 @@ import static com.can.mvp.application.BaseApplication.getActivityManager;
 
 /**
  * Created by can on 2018/3/2.
- * BaseAcitivty
+ * BaseActivity
  *  包括： 1.Activity统一管理
  *         2.设置布局 getLayoutId
  *         3.注解初始化 AnnotationUtils.initBindView
@@ -70,7 +72,7 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
      * 初始化
      */
     private void init() {
-        BaseApplication.getInstance().getActivityManager().addActivty(this);
+        getActivityManager().addActivty(this);
         int contentId = getLayoutId();
         if (contentId != 0) {
             setContentView(contentId);
@@ -142,6 +144,7 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
         transaction.commit();
     }
 
+    @TargetApi(Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -158,7 +161,8 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
     /**
      * 递归调用，对所有的子Fragment生效
      */
-    private void callActivityResult(Fragment fragment,int requestCode,int resultCode,Intent data) {
+    @TargetApi(Build.VERSION_CODES.O)
+    private void callActivityResult(Fragment fragment, int requestCode, int resultCode, Intent data) {
         //调用每个Fragment的onActivityResult()
         fragment.onActivityResult(requestCode, resultCode, data);
         //获取子Fragment
@@ -176,7 +180,6 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
      * 判断是否有某项权限
      * @param string_permission 权限
      * @param request_code 请求码
-     * @return
      */
     public boolean checkReadPermission(String string_permission,int request_code) {
         boolean flag = false;
@@ -207,9 +210,10 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
             case REQUEST_STORAGE_PERMISSION: //存储权限
                 if (permissions.length != 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {//失败
                     ToastUtils.getInstance(this).showText("请允许存储权限后再试");
-                } else {//成功
-
                 }
+//                else {//成功
+//
+//                }
                 break;
         }
     }

@@ -5,10 +5,10 @@
     android:gravity="center">
 
     <Button
-        android:id="@+id/btn_receiver"
-        android:text="请问"
-        android:layout_gravity="center"
+        android:id="@+id/btn_post"
+        android:text="你是不是傻"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
 
 </LinearLayout>

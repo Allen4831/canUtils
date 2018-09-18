@@ -2,7 +2,8 @@ if(isBuildModule.toBoolean())
     apply plugin: 'com.android.application'
 else
     apply plugin: 'com.android.library'
-
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion defaultCompileSdkVersion
     defaultConfig {
@@ -24,6 +25,7 @@ android {
 
     sourceSets{
         main{
+            java.srcDirs += rootProject.ext.kotlin_dir
             if(isBuildModule.toBoolean()){
                 manifest.srcFile  'src/main/module/AndroidManifest.xml'
             }else{
@@ -48,4 +50,8 @@ allprojects {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':library')
+}
+apply plugin: 'kotlin-android'
+repositories {
+    mavenCentral()
 }
