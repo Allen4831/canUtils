@@ -55,6 +55,14 @@ public class TestActivity extends BaseActivity implements FloatingLayerView.mIte
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if(FloatingLayerView.FloatingLayer.hasFloatingView(this)){
+            FloatingLayerView.FloatingLayer.removeFloatingView(this);
+            return;
+        }
+        super.onBackPressed();
+    }
 
     @Override
     public void onFloatingClick(Enum type, View view, boolean isBackClick) {

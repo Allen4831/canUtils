@@ -22,6 +22,8 @@ import android.widget.FrameLayout;
 
 import com.can.floatinglayer.R;
 
+import java.util.WeakHashMap;
+
 
 /**
  * Created by CAN on 18-8-28.
@@ -64,7 +66,7 @@ public class FloatingLayerView extends FrameLayout {
 
     private Enum mDrawType ; //绘制类型
     private Enum mBgType ;//背景类型
-    private Enum mknowPositionType ;//我知道了位置
+    private Enum mKnowPositionType ;//我知道了位置
 
     private View mLightView;//高亮的view
 
@@ -81,7 +83,7 @@ public class FloatingLayerView extends FrameLayout {
         this.mLightView = view;
         this.mDrawType = drawType;
         this.mBgType = bgType;
-        this.mknowPositionType = knowPositionType;
+        this.mKnowPositionType = knowPositionType;
         this.mItemClick = clickListener;
         init();
     }
@@ -122,7 +124,20 @@ public class FloatingLayerView extends FrameLayout {
             mBgBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_floatingflayer_type_4);
         }
         mKnowBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_floatingflayer_know);
+
+        //绘制虚线
+        dashPathEffect = new DashPathEffect(new float[]{10, 3}, 1);
+        mPaintInOut.setPathEffect(dashPathEffect);
+        paint = new Paint();
+        rectKnow = new Rect();
     }
+
+    private HighlightView highlightView;
+    private RectF rectFOut;
+    private RectF rectIn;
+    private PathEffect dashPathEffect;
+    private Paint paint;
+    private Rect rectKnow;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -141,20 +156,11 @@ public class FloatingLayerView extends FrameLayout {
         return true;
     }
 
-    @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        HighlightView highlightView = new HighlightView(mLightView);
-        int rect_padding = 10;//间距
-        RectF rectIn = highlightView.getRectF(rect_padding);//内圈RectF
-        int padding = 10;//外圈与内圈的距离
-        RectF rectFOut = new RectF(rectIn.left - padding, rectIn.top - padding,
-                rectIn.right + padding, rectIn.bottom + padding);//外圈RectF
 
-        //绘制虚线
-        PathEffect dashPathEffect = new DashPathEffect(new float[]{10, 3}, 1);
-        mPaintInOut.setPathEffect(dashPathEffect);
+        updateData();
 
         if (mDrawType == DRAW_TYPE.TYPE_CIRCLE) {//圆
             canvas.drawCircle((rectIn.right-rectIn.left)/2+rectIn.left, (rectIn.bottom-rectIn.top)/2+rectIn.top, Math.max(rectIn.width()/2,rectIn.height()/2), mPaintIn);
@@ -166,17 +172,14 @@ public class FloatingLayerView extends FrameLayout {
 
         mRegionLight.set(rectF2Rect(rectFOut));
 
-        Paint paint = new Paint();
-
-        Rect rectKnow = new Rect();
-        if(mknowPositionType== KNOW_POSITION_TYPE.TYPE_TOP){ //我知道了-按钮在上方
+        if(mKnowPositionType== KNOW_POSITION_TYPE.TYPE_TOP){ //我知道了-按钮在上方
             canvas.drawBitmap(mBgBitmap,(getWidth()-mBgBitmap.getWidth())/2,rectFOut.top-mBgBitmap.getHeight(),paint);
             canvas.drawBitmap(mKnowBitmap,(getWidth()-mKnowBitmap.getWidth())/2,rectFOut.top-mBgBitmap.getHeight()-mKnowBitmap.getHeight()*2,paint);
             rectKnow.left =  (getWidth()-mKnowBitmap.getWidth())/2;
             rectKnow.right = (getWidth()-mKnowBitmap.getWidth())/2 + mKnowBitmap.getWidth();
             rectKnow.top = (int) (rectFOut.top-mBgBitmap.getHeight()-mKnowBitmap.getHeight()*2);
             rectKnow.bottom = (int) (rectFOut.top-mBgBitmap.getHeight()-mKnowBitmap.getHeight());
-        }else if(mknowPositionType== KNOW_POSITION_TYPE.TYPE_BOTTOM){//我知道了-按钮在下方
+        }else if(mKnowPositionType== KNOW_POSITION_TYPE.TYPE_BOTTOM){//我知道了-按钮在下方
             canvas.drawBitmap(mBgBitmap,(getWidth()-mBgBitmap.getWidth())/2,rectFOut.bottom,paint);
             canvas.drawBitmap(mKnowBitmap,(getWidth()-mKnowBitmap.getWidth())/2,rectFOut.bottom+mBgBitmap.getHeight()+mKnowBitmap.getHeight(),paint);
             rectKnow.left =  (getWidth()-mKnowBitmap.getWidth())/2;
@@ -187,6 +190,16 @@ public class FloatingLayerView extends FrameLayout {
         mRegionKnow.set(rectKnow);
 
         //recycleBitmap();
+    }
+
+    //更新数据
+    private void updateData() {
+        highlightView = new HighlightView(mLightView);
+        int rect_padding = 10;//间距
+        rectIn = highlightView.getRectF(rect_padding);//内圈RectF
+        int padding = 10;//外圈与内圈的距离
+        rectFOut = new RectF(rectIn.left - padding, rectIn.top - padding,
+                rectIn.right + padding, rectIn.bottom + padding);//外圈RectF
     }
 
     //释放bitmap
@@ -209,42 +222,36 @@ public class FloatingLayerView extends FrameLayout {
     }
 
 
-    public static class FloatingLayer {
+    static class FloatingLayer {
 
-        @SuppressLint("StaticFieldLeak")
-        private static FloatingLayerView frameLayout;
-        private static final String VIEW_TAG = "view_tag";
+        private static WeakHashMap<Activity,FloatingLayerView> weakHashMap = new WeakHashMap<>();
+
         //添加浮层
-        static void add2Activity(Activity activity, View view, Enum drawType, Enum bgType, Enum knowPostionType, mItemClick clickListener) {
-            if(activity==null||view==null||drawType==null||bgType==null||knowPostionType==null)
+        static void add2Activity(Activity activity, View view, Enum drawType, Enum bgType, Enum knowPositionType, mItemClick clickListener) {
+            if(activity==null||view==null||drawType==null||bgType==null||knowPositionType==null)
                 return;
             ViewGroup viewGroup = (ViewGroup) activity.getWindow().getDecorView();
-            frameLayout = new FloatingLayerView(activity, view,drawType, bgType, knowPostionType,clickListener);
+            FloatingLayerView frameLayout = new FloatingLayerView(activity, view,drawType, bgType, knowPositionType,clickListener);
             ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             frameLayout.setLayoutParams(layoutParams);
-            frameLayout.setTag(VIEW_TAG);
             viewGroup.addView(frameLayout);
+
+            weakHashMap.put(activity,frameLayout);
         }
 
         //是否有浮层
-        public static boolean hasFloatingView(Activity activity){
-            ViewGroup viewGroup = (ViewGroup) activity.getWindow().getDecorView();
-            for (int i = 0; i < viewGroup.getChildCount(); i++) {
-                View mViewChild = viewGroup.getChildAt(i);
-                if(mViewChild.getTag() != null && String.valueOf(mViewChild.getTag()).equals(VIEW_TAG)) {
-                    return true;
-                }
-            }
-            return false;
+        static boolean hasFloatingView(Activity activity){
+            return weakHashMap.containsKey(activity);
         }
 
         //移除浮层
         static void removeFloatingView(Activity activity){
             ViewGroup viewGroup = (ViewGroup) activity.getWindow().getDecorView();
+            FloatingLayerView frameLayout = weakHashMap.get(activity);
             if(viewGroup!=null&&frameLayout!=null){
                 recycleBitmap();
                 viewGroup.removeView(frameLayout);
-                frameLayout = null;
+                weakHashMap.remove(activity);
             }
         }
     }
