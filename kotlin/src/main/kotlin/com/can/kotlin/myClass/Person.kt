@@ -16,7 +16,7 @@ open class Person {
                 -1
         }
 
-    var age : Int = 0
+    var age : Int =  1
 
 
 }
