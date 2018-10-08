@@ -26,6 +26,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 
+    sourceSets {
+        main{
+            java.srcDirs += rootProject.ext.kotlin_dir
+        }
+    }
 }
 
 allprojects {

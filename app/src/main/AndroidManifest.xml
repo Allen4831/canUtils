@@ -50,6 +50,10 @@
         <!--RecycleView透明-->
         <activity android:name=".ui.RecycleViewTransparentActivity"
             android:screenOrientation="portrait"/>
+
+        <!--Aidl跨进程通信-->
+        <activity android:name=".ui.AidlActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -27,6 +27,7 @@ public class NavigationActivity extends BaseActivity {
     private TextView tv_enter_small_window;
     @BindView(id = R.id.tv_recycleview_transparent,click = true)
     private TextView tv_recycleview_transparent;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_navigation;
@@ -36,22 +37,22 @@ public class NavigationActivity extends BaseActivity {
     public void setClick(View view) {
         switch (view.getId()){
             case R.id.tv_login://登录
-                ActivityManagerUtils.getInstance().openActivity(this,LoginActivity.class);
+                ActivityManagerUtils.openActivity(this,LoginActivity.class);
                 break;
             case R.id.tv_qrcode://二维码
-                ActivityManagerUtils.getInstance().openActivity(this,QRCodeActivity.class);
+                ActivityManagerUtils.openActivity(this,QRCodeActivity.class);
                 break;
             case R.id.tv_simulation_data://模拟请求数据
-                ActivityManagerUtils.getInstance().openActivity(this,SimulationDataActivity.class);
+                ActivityManagerUtils.openActivity(this,SimulationDataActivity.class);
                 break;
             case R.id.tv_vertical_viewpager://竖直ViewPager
-                ActivityManagerUtils.getInstance().openActivity(this, VerticalViewPagerActivity.class);
+                ActivityManagerUtils.openActivity(this, VerticalViewPagerActivity.class);
                 break;
             case R.id.tv_enter_small_window://进入小窗口
-                ActivityManagerUtils.getInstance().openActivity(this,SuspensionWindowActivity.class);
+                ActivityManagerUtils.openActivity(this,SuspensionWindowActivity.class);
                 break;
             case R.id.tv_recycleview_transparent: //RecycleView透明
-                ActivityManagerUtils.getInstance().openActivity(this,RecycleViewTransparentActivity.class);
+                ActivityManagerUtils.openActivity(this,RecycleViewTransparentActivity.class);
                 break;
         }
     }

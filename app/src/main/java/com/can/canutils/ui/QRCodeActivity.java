@@ -4,7 +4,6 @@ import android.animation.ValueAnimator;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
@@ -83,27 +82,6 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView {
             }
         });
 
-        sv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(flag)
-                    return true;
-                else
-                   return false;
-            }
-        });
-
-        et_content.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    sv.requestDisallowInterceptTouchEvent(false);
-                } else {
-                    sv.requestDisallowInterceptTouchEvent(true);
-                }
-                return false;
-            }
-        });
 
     }
 

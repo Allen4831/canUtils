@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.can.aidl" >
+
+    <application>
+
+        <service android:name=".BookService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.can.aidl"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>
