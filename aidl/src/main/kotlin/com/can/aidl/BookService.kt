@@ -21,8 +21,7 @@ class BookService : Service() {
         book.name = "android"
         book.price = 2.222
         bookList.add(book)
-        Log.e(s, "create BookService")
-        bookManager.addBook(book)
+        Log.e(s, "create BookService and a book : name = ${book.name} , price = ${book.price}")
     }
 
     private val bookManager = object : BookInterface.Stub(){
@@ -35,11 +34,10 @@ class BookService : Service() {
         override fun addBook(book: Book?) {
             synchronized(this){
                 if(book!=null){
-                    book.price = 2.34
-                    book.name = "我改了名字"
                     if(!bookList.contains(book)){
                         bookList.add(book)
                         Log.e(s, "addBooks() method , now the list is : " + bookList.size)
+                        Log.e(s, "book : name = ${book.name} , price = ${book.price}")
                     }
                 }
             }

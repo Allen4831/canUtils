@@ -57,6 +57,10 @@ class AidlActivity : BaseActivity() {
             if(mBookInterface!=null){
                 mBooksList = mBookInterface!!.books
                 Log.e(localClassName,mBooksList.toString())
+                val book = Book()
+                book.name = "连接后添加的"
+                book.price = 0.01
+                mBookInterface!!.addBook(book)
             }
         }
 
