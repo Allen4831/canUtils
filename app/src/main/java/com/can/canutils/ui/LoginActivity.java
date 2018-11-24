@@ -90,6 +90,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void navigateToHome() {
         Toast.makeText(this,"登录成功",Toast.LENGTH_SHORT).show();
-        ActivityManagerUtils.getInstance().openActivity(this,SimulationDataActivity.class);
+        ActivityManagerUtils.openActivity(this,SimulationDataActivity.class);
     }
 }

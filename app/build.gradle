@@ -54,4 +54,5 @@ dependencies {
     implementation project(':bindview')
     implementation project(':bindview-api')
     implementation project(':resource')
+    implementation project(':custom-view')
 }

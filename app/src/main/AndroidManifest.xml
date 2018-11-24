@@ -51,8 +51,8 @@
         <activity android:name=".ui.RecycleViewTransparentActivity"
             android:screenOrientation="portrait"/>
 
-        <!--Aidl跨进程通信-->
-        <activity android:name=".ui.AidlActivity"
+        <!--自定义view-->
+        <activity android:name=".ui.CustomViewActivity"
             android:screenOrientation="portrait"/>
     </application>
 

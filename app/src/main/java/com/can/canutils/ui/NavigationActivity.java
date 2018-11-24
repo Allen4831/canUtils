@@ -27,6 +27,11 @@ public class NavigationActivity extends BaseActivity {
     private TextView tv_enter_small_window;
     @BindView(id = R.id.tv_recycleview_transparent,click = true)
     private TextView tv_recycleview_transparent;
+    @BindView(id = R.id.tv_custom_chartview,click = true)
+    private TextView tv_custom_chartview;
+
+    public NavigationActivity() {
+    }
 
     @Override
     public int getLayoutId() {
@@ -53,6 +58,9 @@ public class NavigationActivity extends BaseActivity {
                 break;
             case R.id.tv_recycleview_transparent: //RecycleView透明
                 ActivityManagerUtils.openActivity(this,RecycleViewTransparentActivity.class);
+                break;
+            case R.id.tv_custom_chartview://自定义view
+                ActivityManagerUtils.openActivity(this,CustomViewActivity.class);
                 break;
         }
     }
