@@ -54,6 +54,10 @@
         <!--自定义view-->
         <activity android:name=".ui.CustomViewActivity"
             android:screenOrientation="portrait"/>
+
+        <!--波纹图-->
+        <activity android:name=".ui.VoiceWaveViewActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

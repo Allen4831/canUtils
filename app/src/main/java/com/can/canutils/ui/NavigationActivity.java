@@ -8,6 +8,8 @@ import com.can.mvp.base.BaseActivity;
 import com.can.mvp.utils.ActivityManagerUtils;
 import com.can.mvp.views.BindView;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by can on 2018/6/1.
  * 导航Activity
@@ -29,6 +31,8 @@ public class NavigationActivity extends BaseActivity {
     private TextView tv_recycleview_transparent;
     @BindView(id = R.id.tv_custom_chartview,click = true)
     private TextView tv_custom_chartview;
+    @BindView(id = R.id.tv_voice_wave_view,click = true)
+    private TextView tv_voice_wave_view;
 
     public NavigationActivity() {
     }
@@ -61,6 +65,9 @@ public class NavigationActivity extends BaseActivity {
                 break;
             case R.id.tv_custom_chartview://自定义view
                 ActivityManagerUtils.openActivity(this,CustomViewActivity.class);
+                break;
+            case R.id.tv_voice_wave_view://波纹图
+                ActivityManagerUtils.openActivity(this,VoiceWaveViewActivity.class);
                 break;
         }
     }
