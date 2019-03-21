@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'kotlin-android'
 android {
     compileSdkVersion defaultCompileSdkVersion
 
@@ -18,9 +18,15 @@ android {
         }
     }
 
+    sourceSets {
+        main {
+            java.srcDirs += rootProject.ext.kotlin_dir
+        }
+    }
 }
 
 dependencies {
-    api dependents["appcompat-v7"]
-
+    implementation dependents["appcompat-v7"]
+    implementation dependents["recyclerview-v7"]
+    implementation dependents["kotlin"]
 }

@@ -33,7 +33,8 @@ public class NavigationActivity extends BaseActivity {
     private TextView tv_custom_chartview;
     @BindView(id = R.id.tv_voice_wave_view,click = true)
     private TextView tv_voice_wave_view;
-
+    @BindView(id = R.id.tv_bus,click = true)
+    private TextView tv_bus;
     public NavigationActivity() {
     }
 
@@ -68,6 +69,9 @@ public class NavigationActivity extends BaseActivity {
                 break;
             case R.id.tv_voice_wave_view://波纹图
                 ActivityManagerUtils.openActivity(this,VoiceWaveViewActivity.class);
+                break;
+            case R.id.tv_bus://公交路线
+                ActivityManagerUtils.openActivity(this,BusLineActivity.class);
                 break;
         }
     }

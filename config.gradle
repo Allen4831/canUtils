@@ -17,7 +17,7 @@ ext {
             //导入recyclerView
             "recyclerview-v7": "com.android.support:recyclerview-v7:${android_recycleview_version}",
             //各种加载中的动画效果
-            "SpinKit"        : "com.github.ybq:Android-SpinKit:1.1.0",
+            "SpinKit"        : "com.github.ybq:Android-SpinKit:1.2.0",
             //导入tabLayout
             "design"         : "com.android.support:design:23.3.0",
             //二维码库
