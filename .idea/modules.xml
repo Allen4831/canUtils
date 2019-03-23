@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/aidl/aidl.iml" filepath="$PROJECT_DIR$/aidl/aidl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/basics/basics.iml" filepath="$PROJECT_DIR$/basics/basics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bindview/bindview.iml" filepath="$PROJECT_DIR$/bindview/bindview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bindview-api/bindview-api.iml" filepath="$PROJECT_DIR$/bindview-api/bindview-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/canUtils.iml" filepath="$PROJECT_DIR$/canUtils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/component-demo/component-demo.iml" filepath="$PROJECT_DIR$/component-demo/component-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/custom-view/custom-view.iml" filepath="$PROJECT_DIR$/custom-view/custom-view.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eventbus/eventbus.iml" filepath="$PROJECT_DIR$/eventbus/eventbus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/floatinglayer/floatinglayer.iml" filepath="$PROJECT_DIR$/floatinglayer/floatinglayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kotlin/kotlin.iml" filepath="$PROJECT_DIR$/kotlin/kotlin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/notification/notification.iml" filepath="$PROJECT_DIR$/notification/notification.iml" />
+      <module fileurl="file://$PROJECT_DIR$/resource/resource.iml" filepath="$PROJECT_DIR$/resource/resource.iml" />
     </modules>
   </component>
 </project>

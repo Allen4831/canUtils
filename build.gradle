@@ -12,7 +12,7 @@ buildscript {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
         //kotlin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     }
 }
