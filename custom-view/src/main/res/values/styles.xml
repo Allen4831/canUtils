@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!--公交路线 中间层-->
+    <declare-styleable name="BusLineView">
+        <attr name="viewHeight" format="dimension"/>
+        <attr name="itemWidth" format="dimension"/>
+    </declare-styleable>
+    
+</resources>

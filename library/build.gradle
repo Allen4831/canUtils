@@ -38,7 +38,7 @@ android {
 
     dependencies {
         api fileTree(dir: 'libs', include: ['*.jar'])
-        testApi 'junit:junit:4.12'
+        testImplementation 'junit:junit:4.12'
 
         api dependents["appcompat-v7"]
         api dependents["recyclerview-v7"]
