@@ -1,67 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.can.canutils">
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SEND_SMS"/>
 
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/img_app_logo"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
-        android:theme="@style/MyAppTheme">
+        android:theme="@style/MyAppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".ui.NavigationActivity"
-            android:screenOrientation="portrait">
+        <activity
+            android:name=".ui.EnterWebActivity"
+            android:screenOrientation="portrait"
+            >
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
         </activity>
 
         <!--首页-->
-        <activity android:name=".ui.HomeActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.HomeActivity"
+            android:screenOrientation="portrait" />
 
         <!--登录-->
-        <activity android:name=".ui.LoginActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".ui.LoginActivity"
+            android:screenOrientation="portrait" />
 
         <!--生成二维码-->
-        <activity android:name=".ui.QRCodeActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".ui.QRCodeActivity"
+            android:screenOrientation="portrait" />
 
         <!--模拟请求数据-->
-        <activity android:name=".ui.SimulationDataActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.SimulationDataActivity"
+            android:screenOrientation="portrait" />
 
         <!--竖直ViewPager-->
-        <activity android:name=".ui.VerticalViewPagerActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.VerticalViewPagerActivity"
+            android:screenOrientation="portrait" />
 
         <!--悬浮窗-->
-        <activity android:name=".ui.SuspensionWindowActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.SuspensionWindowActivity"
+            android:screenOrientation="portrait" />
 
         <!--RecycleView透明-->
-        <activity android:name=".ui.RecycleViewTransparentActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.RecycleViewTransparentActivity"
+            android:screenOrientation="portrait" />
 
         <!--自定义view-->
-        <activity android:name=".ui.CustomViewActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.CustomViewActivity"
+            android:screenOrientation="portrait" />
 
         <!--波纹图-->
-        <activity android:name=".ui.VoiceWaveViewActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.VoiceWaveViewActivity"
+            android:screenOrientation="portrait" />
 
         <!--公交路线-->
-        <activity android:name=".ui.BusLineActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.BusLineActivity"
+            android:screenOrientation="portrait" />
+
+        <!--WebView-->
+        <activity
+            android:name=".ui.WebViewActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
     </application>
 
 </manifest>

@@ -22,6 +22,7 @@ import com.can.mvp.application.BaseApplication;
 import com.can.mvp.base.mvp.IBaseModel;
 import com.can.mvp.base.mvp.IBaseView;
 import com.can.mvp.bean.requestBean.BaseRequestBean;
+import com.can.mvp.interfaces.OnPermissionListener;
 import com.can.mvp.mvps.models.BaseModel;
 import com.can.mvp.mvps.presenters.BasePresenter;
 import com.can.mvp.mvps.views.BaseView;
@@ -41,16 +42,16 @@ import static com.can.mvp.application.BaseApplication.getActivityManager;
 /**
  * Created by can on 2018/3/2.
  * BaseActivity
- *  包括： 1.Activity统一管理
- *         2.设置布局 getLayoutId
- *         3.注解初始化 AnnotationUtils.initBindView
- *         4.view初始化 initView
- *         5.数据初始化 initData
- *         6.点击事件初始化 setClick
- *         7.onActivityResult : Fragment回调
+ * 包括： 1.Activity统一管理
+ * 2.设置布局 getLayoutId
+ * 3.注解初始化 AnnotationUtils.initBindView
+ * 4.view初始化 initView
+ * 5.数据初始化 initData
+ * 6.点击事件初始化 setClick
+ * 7.onActivityResult : Fragment回调
  */
 
-public abstract class BaseActivity extends Activity implements IBaseModel.IBaseRefreshInterface,IBaseView,View.OnClickListener, BaseView {
+public abstract class BaseActivity extends Activity implements IBaseModel.IBaseRefreshInterface, IBaseView, View.OnClickListener, BaseView {
 
     public BaseDataManager manager;
     public CompositeSubscription mCompositeSubscription;
@@ -64,7 +65,7 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
         super.onCreate(savedInstanceState);
         manager = getDataManager();
         mCompositeSubscription = new CompositeSubscription();
-        basePresenter = new BasePresenter(this,new BaseModel(mCompositeSubscription));
+        basePresenter = new BasePresenter(this, new BaseModel(mCompositeSubscription));
         init();
     }
 
@@ -72,7 +73,7 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
      * 初始化
      */
     private void init() {
-        getActivityManager().addActivty(this);
+        getActivityManager().addActivity(this);
         int contentId = getLayoutId();
         if (contentId != 0) {
             setContentView(contentId);
@@ -87,7 +88,7 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
     @Override
     protected void onStop() {
         super.onStop();
-        if(mCompositeSubscription!=null&&mCompositeSubscription.hasSubscriptions())
+        if (mCompositeSubscription != null && mCompositeSubscription.hasSubscriptions())
             mCompositeSubscription.unsubscribe();
     }
 
@@ -116,10 +117,11 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
 
     /**
      * 请求网络数据
+     *
      * @param bean
      */
     public void requestData(BaseRequestBean bean) {
-        basePresenter.getData(bean,bean.getObservable());
+        basePresenter.getData(bean, bean.getObservable());
     }
 
     @Override
@@ -134,10 +136,11 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
 
     /**
      * 更换Fragment
+     *
      * @param id
      * @param fragment
      */
-    public void changeFragment(int id,Fragment fragment){
+    public void changeFragment(int id, Fragment fragment) {
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(id, fragment);
@@ -149,15 +152,16 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //获取Fragment管理类
-        FragmentManager manager=getFragmentManager();
+        FragmentManager manager = getFragmentManager();
         //遍历Fragments
-        for(int i=0;i<manager.getFragments().size();i++) {
-            Fragment fragment=manager.getFragments().get(i);
+        for (int i = 0; i < manager.getFragments().size(); i++) {
+            Fragment fragment = manager.getFragments().get(i);
             //fragment不为空就去调用onActivityResult()
-            if(fragment!=null)
-                callActivityResult(fragment,requestCode,resultCode,data);
+            if (fragment != null)
+                callActivityResult(fragment, requestCode, resultCode, data);
         }
     }
+
     /**
      * 递归调用，对所有的子Fragment生效
      */
@@ -167,21 +171,41 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
         fragment.onActivityResult(requestCode, resultCode, data);
         //获取子Fragment
         List<Fragment> childFragment = fragment.getChildFragmentManager().getFragments();
-        if(childFragment!=null)
-            for(Fragment f:childFragment)
-                if(f!=null)
+        if (childFragment != null)
+            for (Fragment f : childFragment)
+                if (f != null)
                     callActivityResult(f, requestCode, resultCode, data);
     }
 
     public static final int REQUEST_STORAGE_PERMISSION = 10222;//存储权限
     public static final int REQUEST_CALL_PERMISSION = 10111; //拨号请求码
+    public static final int REQUEST_SEND_SMS_PERMISSION = 10333; //发送短信
+
+    //监听
+    private OnPermissionListener mOnPermissionListener;
+
+    public void setPermissionListener(OnPermissionListener onPermissionListener) {
+        mOnPermissionListener = onPermissionListener;
+    }
 
     /**
      * 判断是否有某项权限
+     *
      * @param string_permission 权限
-     * @param request_code 请求码
+     * @param request_code      请求码
      */
-    public boolean checkReadPermission(String string_permission,int request_code) {
+    public boolean checkReadPermission(String string_permission, int request_code) {
+        boolean flag = false;
+        if (ContextCompat.checkSelfPermission(this, string_permission) == PackageManager.PERMISSION_GRANTED) {//已有权限
+            flag = true;
+        } else {//申请权限
+            ActivityCompat.requestPermissions(this, new String[]{string_permission}, request_code);
+        }
+        return flag;
+    }
+
+    public boolean checkReadPermission(String string_permission, int request_code, OnPermissionListener onPermissionListener) {
+        mOnPermissionListener = onPermissionListener;
         boolean flag = false;
         if (ContextCompat.checkSelfPermission(this, string_permission) == PackageManager.PERMISSION_GRANTED) {//已有权限
             flag = true;
@@ -193,18 +217,22 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
 
     /**
      * 检查权限后的回调
-     * @param requestCode 请求码
+     *
+     * @param requestCode  请求码
      * @param permissions  权限
      * @param grantResults 结果
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        boolean hasPermission = false;
+
         switch (requestCode) {
             case REQUEST_CALL_PERMISSION: //拨打电话
                 if (permissions.length != 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {//失败
                     ToastUtils.getInstance(this).showText("请允许拨号权限后再试");
                 } else {//成功
-                    call("tel:"+"020-22163668");
+                    call("tel:" + "020-22163668");
                 }
                 break;
             case REQUEST_STORAGE_PERMISSION: //存储权限
@@ -215,15 +243,24 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
 //
 //                }
                 break;
+            case REQUEST_SEND_SMS_PERMISSION:
+                if (permissions.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) { //成功
+                    hasPermission = true;
+                }
+                break;
+        }
+        if (mOnPermissionListener != null) {
+            mOnPermissionListener.permissionListener(hasPermission);
         }
     }
 
     /**
      * 拨打电话（直接拨打）
+     *
      * @param telPhone 电话
      */
-    public void call(String telPhone){
-        if(checkReadPermission(Manifest.permission.CALL_PHONE,REQUEST_CALL_PERMISSION)){
+    public void call(String telPhone) {
+        if (checkReadPermission(Manifest.permission.CALL_PHONE, REQUEST_CALL_PERMISSION)) {
             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(telPhone));
             startActivity(intent);
         }
@@ -247,7 +284,7 @@ public abstract class BaseActivity extends Activity implements IBaseModel.IBaseR
     @Override
     public BaseDataManager getDataManager() {
         GsonConverterFactory factory = GsonConverterFactory.create();
-        return new DataManager(BaseApplication.getInstance(),URL,factory);
+        return new DataManager(BaseApplication.getInstance(), URL, factory);
     }
 
     @Override

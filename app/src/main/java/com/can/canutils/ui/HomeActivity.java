@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.can.canutils.R;
 import com.can.canutils.fragment.HomeFragment;
 import com.can.mvp.base.BaseActivity;
 import com.can.mvp.bean.responseBean.User;
@@ -19,7 +20,7 @@ import com.can.mvp.views.BindView;
 
 public class HomeActivity extends BaseActivity implements HomeView {
 
-    @BindView(id = com.can.mvp.R.id.tv)
+    @BindView(id = R.id.tv)
     private TextView tv;
     private LinearLayout ll;
 

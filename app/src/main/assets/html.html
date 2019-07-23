@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" />
+    <title>发送短信</title>
+
+    <script type="text/javascript">
+        function sendSms() {
+            var json = JSON.stringify({"phone":"13570503483","content":"收到这条短信的是猪！"})
+            window.SendSmsInterface.sendSms(json)
+        }
+    </script>
+</head>
+
+<body>
+<b>发送短信——测试</b>
+<br />
+<button onclick="sendSms()">发送短信</button>
+</body>
+</html>

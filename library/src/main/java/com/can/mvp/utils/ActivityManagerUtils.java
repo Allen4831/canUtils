@@ -47,7 +47,7 @@ public class ActivityManagerUtils {
     }
 
     //添加Activity
-    public void addActivty(BaseActivity activity) {
+    public void addActivity(BaseActivity activity) {
         activityStack.add(activity);
     }
 

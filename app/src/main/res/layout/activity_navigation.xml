@@ -108,4 +108,16 @@
         android:textColor="#2bf"
         android:background="?selectableItemBackground"
         />
+
+    <TextView
+        android:id="@+id/tv_web"
+        android:text="WebView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColor="#2bf"
+        android:background="?selectableItemBackground"
+        />
 </LinearLayout>
