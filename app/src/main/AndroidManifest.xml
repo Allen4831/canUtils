@@ -4,21 +4,21 @@
     package="com.can.canutils">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/MyAppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
             android:name=".ui.EnterWebActivity"
             android:screenOrientation="portrait"
-            >
+            android:windowSoftInputMode="adjustResize|stateHidden">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -80,8 +80,7 @@
         <!--WebView-->
         <activity
             android:name=".ui.WebViewActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:screenOrientation="portrait" />
 
     </application>
 
