@@ -16,7 +16,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".ui.EnterWebActivity"
+            android:name=".ui.NavigationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden">
 
@@ -80,6 +80,10 @@
         <!--WebView-->
         <activity
             android:name=".ui.WebViewActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.AlgorithmActivity"
             android:screenOrientation="portrait" />
 
     </application>

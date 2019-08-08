@@ -35,6 +35,8 @@ public class NavigationActivity extends BaseActivity {
     private TextView tv_bus;
     @BindView(id = R.id.tv_web, click = true)
     private TextView mTvWeb;
+    @BindView(id = R.id.tv_algorithm, click = true)
+    private TextView mTvAlgorithm;
 
     public NavigationActivity() {
     }
@@ -47,6 +49,9 @@ public class NavigationActivity extends BaseActivity {
     @Override
     public void setClick(View view) {
         switch (view.getId()) {
+            case R.id.tv_algorithm : //算法
+                ActivityManagerUtils.openActivity(this, AlgorithmActivity.class);
+                break;
             case R.id.tv_login://登录
                 ActivityManagerUtils.openActivity(this, LoginActivity.class);
                 break;

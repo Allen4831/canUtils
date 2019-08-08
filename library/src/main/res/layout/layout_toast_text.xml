@@ -17,7 +17,7 @@
             android:layout_alignWithParentIfMissing="true"
             android:gravity="center_vertical"
             android:textColor="@color/color_white"
-            android:textSize="16.0dip" />
+            android:textSize="16sp" />
     </RelativeLayout>
 
 </FrameLayout>
