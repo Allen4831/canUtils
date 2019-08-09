@@ -7,6 +7,8 @@ import android.widget.EditText
 import android.widget.TextView
 import com.can.canutils.R
 import com.can.canutils.utils.bubblingAlgorithm
+import com.can.canutils.utils.fastAlgorithm
+import com.can.canutils.utils.mergeAlgorithm
 import com.can.mvp.base.BaseActivity
 
 /**
@@ -21,7 +23,7 @@ class AlgorithmActivity : BaseActivity() {
     private var mEtInput: EditText? = null
     private var mTvResult: TextView? = null
 
-    private val choiceItems = arrayOf("冒泡排序", "归并排序")
+    private val choiceItems = arrayOf("冒泡排序", "归并排序", "快速排序")
 
 
     override fun initView(view: View?) {
@@ -30,10 +32,7 @@ class AlgorithmActivity : BaseActivity() {
 
         findViewById<Button>(R.id.btn_algorithm).setOnClickListener {
             val alertBuilder = AlertDialog.Builder(this)
-
-
             var choosePosition = 0
-
             alertBuilder.setSingleChoiceItems(choiceItems, 0) { _, position ->
                 choosePosition = position
             }.setTitle("请选择算法").setPositiveButton("确认") { _, _ ->
@@ -64,14 +63,17 @@ class AlgorithmActivity : BaseActivity() {
 
         when (position) {
             0 -> { //冒泡排序
-                bubblingAlgorithm(numberArray)
+                mTvResult?.text = getString(R.string.algorithm_symbol, choiceItems[position], bubblingAlgorithm(numberArray))
             }
 
-            1 -> {
+            1 -> { //归并排序
+                mTvResult?.text = getString(R.string.algorithm_symbol, choiceItems[position], mergeAlgorithm(numberArray))
+            }
 
+            2 -> { //快速排序
+                mTvResult?.text = getString(R.string.algorithm_symbol, choiceItems[position], fastAlgorithm(numberArray))
             }
         }
 
-        mTvResult?.text = position.toString()
     }
 }

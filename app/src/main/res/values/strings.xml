@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Message</string>
+    <string name="algorithm_symbol">%s:%s</string>
 </resources>
