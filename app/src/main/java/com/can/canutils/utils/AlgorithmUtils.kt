@@ -86,15 +86,15 @@ private fun fast(array: MutableList<Int>, min: Int, max: Int) {
         var right = max //最右边下标
         val baseNumber = array[left] //基准数，以最左边的数为准
         while (left < right) {
-            while (left < right && array[right] >= baseNumber)  //从右向左,找到第一个比基准数小的数
+            while (left < right && array[right] >= baseNumber) { //从右向左,找到第一个比基准数小的数
                 right--
-
-            if (left < right) //找到后，放到最左边
+            }
+            if (left < right) { //找到后，放到最左边
                 array[left] = array[right]
-
-            while (left < right && array[left] <= baseNumber)  //从左向右,找到第一个比基准数大的数
+            }
+            while (left < right && array[left] <= baseNumber) { //从左向右,找到第一个比基准数大的数
                 left++
-
+            }
             if (left < right) //找到后，放到最右边
                 array[right] = array[left]
         }
