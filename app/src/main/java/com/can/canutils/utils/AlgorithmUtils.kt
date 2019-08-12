@@ -47,6 +47,7 @@ private fun getArrayResult(array: MutableList<Int>): String {
 //合并、排序
 private fun mergeSort(array: MutableList<Int>, min: Int, max: Int) {
     if (min < max) {
+        //拆分，分治法，每次都拆为两个数组
         val mid = (min + max) / 2
         mergeSort(array, min, mid)
         mergeSort(array, mid + 1, max)
@@ -60,13 +61,13 @@ private fun merge(array: MutableList<Int>, min: Int, mid: Int, max: Int) {
     var i = min
     var j = mid + 1
     var k = 0
-    while (i <= mid && j <= max)
+    while (i <= mid && j <= max) //相当于两个数组的比较,取最小值
         temp[k++] = if (array[i] < array[j]) array[i++] else array[j++]
-    while (i <= mid)
+    while (i <= mid) //这种情况说明，这里的数值大，赋值给temp
         temp[k++] = array[i++]
-    while (j <= max)
+    while (j <= max) //这种情况说明，这里的数值大，赋值给temp
         temp[k++] = array[j++]
-    for (t in temp.indices)
+    for (t in temp.indices) //这里已经按小到大的顺序排序好,将值赋予原数组
         array[t + min] = temp[t]
 }
 
