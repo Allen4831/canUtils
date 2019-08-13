@@ -30,18 +30,20 @@ class AlgorithmActivity : BaseActivity() {
         mEtInput = findViewById(R.id.et_input)
         mTvResult = findViewById(R.id.tv_result)
 
+        val alertBuilder = AlertDialog.Builder(this)
+        var choosePosition = 0
+        alertBuilder.setSingleChoiceItems(choiceItems, 0) { _, position ->
+            choosePosition = position
+        }.setTitle("请选择算法").setPositiveButton("确认") { _, _ ->
+            transformation(choosePosition)
+        }.setNegativeButton("取消") { _, _ ->
+            transformation(choosePosition)
+        }
+        val dialog = alertBuilder.create()
+
         findViewById<Button>(R.id.btn_algorithm).setOnClickListener {
-            val alertBuilder = AlertDialog.Builder(this)
-            var choosePosition = 0
-            alertBuilder.setSingleChoiceItems(choiceItems, 0) { _, position ->
-                choosePosition = position
-            }.setTitle("请选择算法").setPositiveButton("确认") { _, _ ->
-                transformation(choosePosition)
-            }.setNegativeButton("取消") { _, _ ->
-                transformation(choosePosition)
-            }
-            val dialog = alertBuilder.create()
-            dialog.show()
+            if (!dialog.isShowing)
+                dialog.show()
         }
     }
 
