@@ -3,7 +3,7 @@ if(isBuildModule.toBoolean()){
 }else{
     apply plugin: 'com.android.library'
 }
-
+apply plugin: 'kotlin-android'
 android {
     compileSdkVersion defaultCompileSdkVersion
     defaultConfig {
