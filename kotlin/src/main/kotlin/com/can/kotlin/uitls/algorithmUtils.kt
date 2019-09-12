@@ -195,5 +195,190 @@ fun medianSlidingWindow(nums: IntArray, k: Int): DoubleArray {
 所以你应该输出2.
  */
 fun findContentChildren(g: IntArray, s: IntArray): Int {
-
+    if (g.isEmpty() || s.isEmpty())
+        return 0
+    Arrays.sort(g)
+    Arrays.sort(s)
+    var child = 0
+    var biscuits = 0
+    while (child < g.size && biscuits < s.size) {
+        if (g[child] < s[biscuits])
+            child++
+        biscuits++
+    }
+    return child
 }
+
+
+/**
+ * 在二维平面上计算出两个由直线构成的矩形重叠后形成的总面积。
+
+每个矩形由其左下顶点和右上顶点坐标表示，如图所示。
+
+
+
+示例:
+
+输入: -3, 0, 3, 4, 0, -1, 9, 2
+输出: 45
+说明: 假设矩形面积不会超出 int 的范围。
+ */
+fun computeArea(A: Int, B: Int, C: Int, D: Int, E: Int, F: Int, G: Int, H: Int): Int {
+    return when {
+        E > C || B > H || D < F || A > G -> { //两个矩形不重叠，取各自的面积之和
+            (D - B) * (C - A) + (G - E) * (H - F)
+        }
+        else -> { //两个矩形重叠，取两个矩形之和-矩形的重叠部分
+            (D - B) * (C - A) + (G - E) * (H - F) - (Math.min(C, G) - Math.max(A, E)) * (Math.min(D, H) - Math.max(B, F))
+        }
+    }
+}
+
+
+/**
+ * 给定一个整数数组 A ，考虑 A 的所有非空子序列。
+
+对于任意序列 S ，设 S 的宽度是 S 的最大元素和最小元素的差。
+
+返回 A 的所有子序列的宽度之和。
+
+由于答案可能非常大，请返回答案模 10^9+7。
+ 
+示例：
+输入：[2,1,3]
+输出：6
+解释：
+子序列为 [1]，[2]，[3]，[2,1]，[2,3]，[1,3]，[2,1,3] 。
+相应的宽度是 0，0，0，1，1，2，2 。
+这些宽度之和是 6 。
+[1,2,3,4]
+[1,2] [1,3] [1,4] [2,3] [2,4] [3,4] [1,2,3] [1,2,4] [1,3,4] , [2,3,4] [1,2,3,4]
+1  ,  2  ,  3  ,  1  ,  2  ,  1  ,   2    ,  3  ,    3   ,     2   ,    3
+和为23
+提示：
+1 <= A.length <= 20000
+1 <= A[i] <= 20000
+
+todo 暂时无解
+
+ */
+fun sumSubseqWidths(A: IntArray): Int {
+    val mod = 100000000 + 7
+    Arrays.sort(A)
+    var widths = 0
+    var b: Int
+    var t = 2
+    val length = A.size
+    for (i in 0 until length) {
+        b = ((A[i] - A[length - i - 1]) * (t - 1)) % mod
+        t = (t * 2) % mod
+        widths = (widths + b) % mod
+    }
+    return widths
+}
+
+
+/**
+ * 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
+
+示例 1:
+
+输入: 123
+输出: 321
+ 示例 2:
+
+输入: -123
+输出: -321
+示例 3:
+
+输入: 120
+输出: 21
+注意:
+
+假设我们的环境只能存储得下 32 位的有符号整数，则其数值范围为 [−231,  231 − 1]。请根据这个假设，如果反转后整数溢出那么就返回 0。
+ */
+fun reverse(x: Int): Int {
+    var temp: Long = 0
+    var n = x
+    while (n != 0) {
+        temp = temp * 10 + n % 10
+        n /= 10
+    }
+    if (temp > Integer.MAX_VALUE || temp < Integer.MIN_VALUE)
+        return 0
+    return temp.toInt()
+}
+
+class TreeNode(var `val`: Int) {
+    var left: TreeNode? = null
+    var right: TreeNode? = null
+}
+
+/****
+ *  给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。
+
+你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，否则不为 NULL 的节点将直接作为新二叉树的节点。
+
+示例 1:
+
+输入:
+Tree 1                     Tree 2
+1                         2
+/ \                       / \
+3   2                     1   3
+/                           \   \
+5                             4   7
+输出:
+合并后的树:
+3
+/ \
+4   5
+/ \   \
+5   4   7
+注意: 合并必须从两个树的根节点开始。
+ */
+fun mergeTrees(t1: TreeNode?, t2: TreeNode?): TreeNode? {
+    if (t1 == null) return t2
+    if (t2 == null) return t1
+    t1.`val` += t2.`val`
+    if (t1.left != null && t2.left != null)
+        mergeTrees(t1.left, t2.left)
+    else if (t1.left == null && t2.left != null)
+        t1.left = t2.left
+    if (t1.right != null && t2.right != null)
+        mergeTrees(t1.right, t2.right)
+    else if (t1.right == null && t2.right != null)
+        t1.right = t2.right
+    return t1
+}
+
+/**
+ *  给定字符串J 代表石头中宝石的类型，和字符串 S代表你拥有的石头。 S 中每个字符代表了一种你拥有的石头的类型，你想知道你拥有的石头中有多少是宝石。
+
+J 中的字母不重复，J 和 S中的所有字符都是字母。字母区分大小写，因此"a"和"A"是不同类型的石头。
+
+示例 1:
+
+输入: J = "aA", S = "aAAbbbb"
+输出: 3
+示例 2:
+
+输入: J = "z", S = "ZZ"
+输出: 0
+注意:
+
+S 和 J 最多含有50个字母。
+ J 中的字符不重复。
+ */
+fun numJewelsInStones(J: String, S: String): Int {
+    var count = 0
+    J.forEach {
+        S.forEach { ch->
+            if (it == ch)
+                count++
+        }
+    }
+    return count
+}
+
+
