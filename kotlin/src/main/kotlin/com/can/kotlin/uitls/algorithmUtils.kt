@@ -202,7 +202,7 @@ fun findContentChildren(g: IntArray, s: IntArray): Int {
     var child = 0
     var biscuits = 0
     while (child < g.size && biscuits < s.size) {
-        if (g[child] < s[biscuits])
+        if (g[child] <= s[biscuits])
             child++
         biscuits++
     }
@@ -373,7 +373,7 @@ S 和 J 最多含有50个字母。
 fun numJewelsInStones(J: String, S: String): Int {
     var count = 0
     J.forEach {
-        S.forEach { ch->
+        S.forEach { ch ->
             if (it == ch)
                 count++
         }
@@ -382,3 +382,136 @@ fun numJewelsInStones(J: String, S: String): Int {
 }
 
 
+/**
+ *编写一个程序判断给定的数是否为丑数。
+
+丑数就是只包含质因数 2, 3, 5 的正整数。
+
+示例 1:
+
+输入: 6
+输出: true
+解释: 6 = 2 × 3
+示例 2:
+
+输入: 8
+输出: true
+解释: 8 = 2 × 2 × 2
+示例 3:
+
+输入: 14
+输出: false
+解释: 14 不是丑数，因为它包含了另外一个质因数 7。
+说明：
+
+1 是丑数。
+输入不会超过 32 位有符号整数的范围: [−231,  231 − 1]。
+ */
+fun isUgly(num: Int): Boolean {
+    if (num <= 0) return false
+    var n = num
+    while (n % 2 == 0) {
+        n /= 2
+    }
+    while (n % 3 == 0) {
+        n /= 3
+    }
+    while (n % 5 == 0) {
+        n /= 5
+    }
+    if (n == 1)
+        return true
+    return false
+}
+
+/**
+ * 给定一个整数，写一个函数来判断它是否是 3 的幂次方。
+
+示例 1:
+
+输入: 27
+输出: true
+示例 2:
+
+输入: 0
+输出: false
+示例 3:
+
+输入: 9
+输出: true
+示例 4:
+
+输入: 45
+输出: false
+进阶：
+你能不使用循环或者递归来完成本题吗？
+ */
+fun isPowerOfThree(n: Int): Boolean {
+    if (n == 0) return false
+    var num = n
+    while (num % 3 == 0) {
+        num /= 3
+    }
+    return num == 1
+}
+
+
+/**
+ * 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现了三次。找出那个只出现了一次的元素。
+
+说明：
+
+你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+
+示例 1:
+
+输入: [2,2,3,2]
+输出: 3
+示例 2:
+
+输入: [0,1,0,1,0,1,99]
+输出: 99
+ */
+fun singleNumber(nums: IntArray): Int {
+    var a = 0
+    var b = 0
+    for (num in nums) {
+        a = a xor num and b.inv()
+        b = b xor num and a.inv()
+    }
+    return a
+}
+
+/**
+ * 给定一个带有头结点 head 的非空单链表，返回链表的中间结点。
+
+如果有两个中间结点，则返回第二个中间结点。
+
+ 
+
+示例 1：
+
+输入：[1,2,3,4,5]
+输出：此列表中的结点 3 (序列化形式：[3,4,5])
+返回的结点值为 3 。 (测评系统对该结点序列化表述是 [3,4,5])。
+注意，我们返回了一个 ListNode 类型的对象 ans，这样：
+ans.val = 3, ans.next.val = 4, ans.next.next.val = 5, 以及 ans.next.next.next = NULL.
+示例 2：
+
+输入：[1,2,3,4,5,6]
+输出：此列表中的结点 4 (序列化形式：[4,5,6])
+由于该列表有两个中间结点，值分别为 3 和 4，我们返回第二个结点。
+ 
+
+提示：
+
+给定链表的结点数介于 1 和 100 之间。
+ */
+class ListNode(var `val`: Int) {
+    var next: ListNode? = null
+}
+
+fun middleNode(head: ListNode?): ListNode? {
+
+    return head
+}
