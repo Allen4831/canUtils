@@ -512,6 +512,13 @@ class ListNode(var `val`: Int) {
 }
 
 fun middleNode(head: ListNode?): ListNode? {
-
-    return head
+    var dummy = head // head 的副本
+    var copyHead = head
+    while (dummy?.next != null) {
+        dummy = dummy.next?.next // 快指针
+        copyHead = copyHead?.next // 慢指针
+    }
+    return copyHead
 }
+
+
