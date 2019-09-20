@@ -16,7 +16,7 @@ import com.can.mvp.base.BaseActivity
  */
 class AidlActivity : BaseActivity() {
 
-    private var mBookInterface : BookInterface? = null
+    private var mBookInterface: BookInterface? = null
     private var mIsBound = false
     private var mBooksList = mutableListOf<Book>()
 
@@ -26,7 +26,7 @@ class AidlActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        if(!mIsBound){
+        if (!mIsBound) {
             attemptToBindService()
         }
     }
@@ -34,38 +34,38 @@ class AidlActivity : BaseActivity() {
     /***
      * 尝试与服务器连接
      */
-    private fun attemptToBindService(){
+    private fun attemptToBindService() {
         val intent = Intent()
         intent.action = "com.can.aidl"
         intent.`package` = "com.can.aidl"
-        bindService(intent,mServiceConnection,Context.BIND_AUTO_CREATE)
+        bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE)
     }
 
     override fun onStop() {
         super.onStop()
-        if(mIsBound){
+        if (mIsBound) {
             unbindService(mServiceConnection)
-            mIsBound =false
+            mIsBound = false
         }
     }
 
-    private val mServiceConnection = object : ServiceConnection{
+    private val mServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
-            Log.e(localClassName,"service connected")
+            Log.e(localClassName, "service connected")
             mBookInterface = BookInterface.Stub.asInterface(p1)
             mIsBound = true
-            if(mBookInterface!=null){
-                mBooksList = mBookInterface!!.books
-                Log.e(localClassName,mBooksList.toString())
+            mBookInterface?.let {
+                mBooksList = it.books
+                Log.e(localClassName, it.books.toString())
                 val book = Book()
                 book.name = "连接后添加的"
                 book.price = 0.01
-                mBookInterface!!.addBook(book)
+                it.addBook(book)
             }
         }
 
         override fun onServiceDisconnected(p0: ComponentName?) {
-            Log.e(localClassName,"service disconnected")
+            Log.e(localClassName, "service disconnected")
             mIsBound = false
         }
 

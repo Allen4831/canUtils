@@ -522,3 +522,159 @@ fun middleNode(head: ListNode?): ListNode? {
 }
 
 
+/**
+ * 给定一个非负整数 num，反复将各个位上的数字相加，直到结果为一位数。
+
+示例:
+
+输入: 38
+输出: 2
+解释: 各位相加的过程为：3 + 8 = 11, 1 + 1 = 2。 由于 2 是一位数，所以返回 2。
+进阶:
+你可以不使用循环或者递归，且在 O(1) 时间复杂度内解决这个问题吗？
+ */
+fun addDigits(num: Int): Int {
+    if (num < 10) return num
+    val n = num % 9
+    return if (n == 0) 9 else n
+}
+
+
+/**
+ * 给定一个字符串 s，计算具有相同数量0和1的非空(连续)子字符串的数量，并且这些子字符串中的所有0和所有1都是组合在一起的。
+
+重复出现的子串要计算它们出现的次数。
+
+示例 1 :
+
+输入: "00110011"
+输出: 6
+解释: 有6个子串具有相同数量的连续1和0：“0011”，“01”，“1100”，“10”，“0011” 和 “01”。
+
+请注意，一些重复出现的子串要计算它们出现的次数。
+
+另外，“00110011”不是有效的子串，因为所有的0（和1）没有组合在一起。
+示例 2 :
+
+输入: "10101"
+输出: 4
+解释: 有4个子串：“10”，“01”，“10”，“01”，它们具有相同数量的连续1和0。
+注意：
+
+s.length 在1到50,000之间。
+s 只包含“0”或“1”字符。
+ */
+fun countBinarySubstrings(s: String): Int {
+    var preCount = 0 //上一个数的连续个数
+    var curCount = 1 //当前数的连续个数
+    var count = 0 //连续子串出现的个数
+    for (i in 1 until s.length) {
+        if (s[i - 1] == s[i]) { //相等时，当前连续个数+1
+            curCount++
+        } else { //不等时，上一个连续个数为当前连续个数，当前连续个数为1
+            preCount = curCount
+            curCount = 1
+        }
+        //如果上一个连续个数大于等于当前连续个数，总数+1
+        if (curCount <= preCount) count++
+    }
+    return count
+}
+
+/**
+ * 你总共有 n 枚硬币，你需要将它们摆成一个阶梯形状，第 k 行就必须正好有 k 枚硬币。
+
+给定一个数字 n，找出可形成完整阶梯行的总行数。
+
+n 是一个非负整数，并且在32位有符号整型的范围内。
+
+示例 1:
+
+n = 5
+
+硬币可排列成以下几行:
+¤
+¤ ¤
+¤ ¤
+
+因为第三行不完整，所以返回2.
+示例 2:
+
+n = 8
+
+硬币可排列成以下几行:
+¤
+¤ ¤
+¤ ¤ ¤
+¤ ¤
+
+line 1 2 3
+k 1 3 6
+n 5
+
+因为第四行不完整，所以返回3.
+ */
+fun arrangeCoins(n: Int): Int {
+    if (n > Int.MAX_VALUE) return 0
+    var num = n
+    var i = 0
+    while (num > i) {
+        i++
+        num -= i
+    }
+    return i
+}
+
+
+/**
+ * 给定一个只包含小写字母的有序数组letters 和一个目标字母 target，寻找有序数组里面比目标字母大的最小字母。
+ * 数组里字母的顺序是循环的。举个例子，如果目标字母target = 'z' 并且有序数组为 letters = ['a', 'b']，则答案返回 'a'。
+
+示例:
+
+输入:
+letters = ["c", "f", "j"]
+target = "a"
+输出: "c"
+
+输入:
+letters = ["c", "f", "j"]
+target = "c"
+输出: "f"
+
+输入:
+letters = ["c", "f", "j"]
+target = "d"
+输出: "f"
+
+输入:
+letters = ["c", "f", "j"]
+target = "g"
+输出: "j"
+
+输入:
+letters = ["c", "f", "j"]
+target = "j"
+输出: "c"
+
+输入:
+letters = ["c", "f", "j"]
+target = "k"
+输出: "c"
+注:
+
+letters长度范围在[2, 10000]区间内。
+letters 仅由小写字母组成，最少包含两个不同的字母。
+目标字母target 是一个小写字母。
+ */
+fun nextGreatestLetter(letters: CharArray, target: Char): Char {
+    var left = 0
+    val length = letters.size
+    var right = length - 1
+    while (left <= right) {
+        val mid = (left + right) / 2
+        if (letters[mid] <= target) left = mid + 1
+        else right = mid - 1
+    }
+    return letters[left % length]
+}
