@@ -47,4 +47,5 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation dependents["kotlin"]
     implementation dependents["kotlin-coroutines"]
+    implementation project(':resource')
 }

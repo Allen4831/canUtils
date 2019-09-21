@@ -25,6 +25,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation dependents["appcompat-v7"]
 }
 
 sourceCompatibility = "1.7"

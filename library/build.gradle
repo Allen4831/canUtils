@@ -53,7 +53,7 @@ android {
         api dependents["kotlin"]
         api dependents["kotlin-coroutines"]
 
-        implementation project(':resource')
+        api project(':resource')
 
     }
 }
