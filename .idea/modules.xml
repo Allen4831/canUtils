@@ -16,6 +16,7 @@
       <module fileurl="file://$PROJECT_DIR$/jni/jni.iml" filepath="$PROJECT_DIR$/jni/jni.iml" />
       <module fileurl="file://$PROJECT_DIR$/kotlin/kotlin.iml" filepath="$PROJECT_DIR$/kotlin/kotlin.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mvp/mvp.iml" filepath="$PROJECT_DIR$/mvp/mvp.iml" />
       <module fileurl="file://$PROJECT_DIR$/notification/notification.iml" filepath="$PROJECT_DIR$/notification/notification.iml" />
       <module fileurl="file://$PROJECT_DIR$/resource/resource.iml" filepath="$PROJECT_DIR$/resource/resource.iml" />
     </modules>

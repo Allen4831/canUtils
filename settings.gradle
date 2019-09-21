@@ -1,1 +1,1 @@
-include ':app', ':library', ':bindview', ':bindview-api', ':component-demo', ':floatinglayer', ':notification', ':eventbus', ':resource', ':basics', ':kotlin', ':aidl', ':custom-view', ':jni'
+include ':app', ':library', ':bindview', ':bindview-api', ':component-demo', ':floatinglayer', ':notification', ':eventbus', ':resource', ':basics', ':kotlin', ':aidl', ':custom-view', ':jni', ':mvp'
