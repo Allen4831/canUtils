@@ -7,7 +7,7 @@ ext {
     defaultMinSdkVersion = 15
     defaultTargetSdkVersion = 26
 
-    android_support_version = "23.4.0"
+    android_support_version = "27.1.1"
     android_recycleview_version = "23.4.0"
 
     kotlin_dir = "src/main/kotlin"
@@ -21,7 +21,7 @@ ext {
             //各种加载中的动画效果
             "SpinKit"          : "com.github.ybq:Android-SpinKit:1.2.0",
             //导入tabLayout
-            "design"           : "com.android.support:design:23.3.0",
+            "design"           : "com.android.support:design:${android_support_version}",
             //二维码库
             "zxing"            : "com.google.zxing:core:3.2.1",
             //网络请求框架Retrofit
