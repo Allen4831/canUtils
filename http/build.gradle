@@ -4,8 +4,10 @@ else
     apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
 android {
     compileSdkVersion defaultCompileSdkVersion
+
     defaultConfig {
         minSdkVersion defaultMinSdkVersion
         targetSdkVersion defaultTargetSdkVersion
@@ -23,16 +25,13 @@ android {
         }
     }
 
-    sourceSets{
-        main{
-            java.srcDirs += rootProject.ext.kotlin_dir
+    sourceSets {
+        main {
+            java.srcDirs += ['src/main/kotlin', 'src/main/aidl']
             if(isBuildModule.toBoolean()){
                 manifest.srcFile  'src/main/module/AndroidManifest.xml'
             }else{
                 manifest.srcFile  'src/main/AndroidManifest.xml'
-                java {
-                    exclude 'debug/**'
-                }
             }
         }
     }

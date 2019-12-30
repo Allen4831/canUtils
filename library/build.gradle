@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-group='com.github.xuwennengcan'
+group = 'com.github.xuwennengcan'
 android {
     compileSdkVersion defaultCompileSdkVersion
 
@@ -50,6 +50,7 @@ android {
         implementation dependents["rxjava"]
         implementation dependents["rxandroid"]
         implementation dependents["eventbus"]
+        api dependents["constraintLayout"]
         api dependents["kotlin"]
         api dependents["kotlin-coroutines"]
 
