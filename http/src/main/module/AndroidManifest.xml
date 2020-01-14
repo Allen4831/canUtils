@@ -2,22 +2,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.can.http">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
-        android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".ui.UpdateAppActivity"
+        <activity
+            android:name=".ui.UpdateAppActivity"
             android:screenOrientation="portrait">
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
         </activity>
+
+        <receiver
+            android:name=".services.StaticBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="call" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
