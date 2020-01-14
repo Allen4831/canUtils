@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.can.http.R
-import com.can.http.services.StaticBroadcastReceiver
 import com.can.mvp.base.BaseActivity
 
 /**
@@ -55,7 +54,7 @@ class UpdateAppActivity : BaseActivity() {
             intent.action = "动态广播"
             intent.putExtra("动态广播", "注册成功")
             sendBroadcast(intent)
-        }else{
+        } else {
             val intent = Intent()
             intent.action = "call"
             intent.putExtra("静态广播", "注册成功")
