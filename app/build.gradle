@@ -55,4 +55,5 @@ dependencies {
     implementation project(':bindview-api')
     implementation project(':resource')
     implementation project(':custom-view')
+    implementation dependents["okhttp"]
 }

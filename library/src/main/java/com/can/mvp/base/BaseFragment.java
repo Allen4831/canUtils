@@ -1,8 +1,5 @@
 package com.can.mvp.base;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,16 +14,15 @@ import com.can.mvp.utils.FragmentManagerUtils;
  * Created by can on 2018/3/6.
  */
 
-public abstract class BaseFragment extends Fragment implements IBaseView,View.OnClickListener{
-
+public abstract class BaseFragment extends android.support.v4.app.Fragment implements IBaseView, View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentManagerUtils.getInstance().pushFragment(this);
         int contentId = getLayoutId();
         if (contentId != 0) {
-            View view = inflater.inflate(contentId,null);
-            AnnotationUtils.initBindView(this,view);
+            View view = inflater.inflate(contentId, null);
+            AnnotationUtils.initBindView(this, view);
             Bundle bundle = getArguments();
             initView(view);
             initData(bundle);
@@ -76,15 +72,4 @@ public abstract class BaseFragment extends Fragment implements IBaseView,View.On
         setClick(view);
     }
 
-    /**
-     * 更换Fragment
-     * @param id
-     * @param fragment
-     */
-    public void changeFragment(int id,Fragment fragment){
-        FragmentManager manager = getFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(id, fragment);
-        transaction.commit();
-    }
 }

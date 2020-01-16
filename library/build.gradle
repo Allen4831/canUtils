@@ -41,14 +41,14 @@ android {
         testImplementation 'junit:junit:4.12'
 
         api dependents["appcompat-v7"]
-        implementation dependents["recyclerview-v7"]
+        api dependents["recyclerview-v7"]
         implementation dependents["SpinKit"]
-        implementation dependents["design"]
+        api dependents["design"]
         implementation dependents["zxing"]
         implementation dependents["retrofit"]
         implementation dependents["gson"]
-        implementation dependents["rxjava"]
-        implementation dependents["rxandroid"]
+        api dependents["rxjava"]
+        api dependents["rxandroid"]
         implementation dependents["eventbus"]
         api dependents["constraintLayout"]
         api dependents["kotlin"]

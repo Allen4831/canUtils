@@ -62,7 +62,7 @@ public class NavigationActivity extends BaseActivity {
                 ActivityManagerUtils.openActivity(this, SimulationDataActivity.class);
                 break;
             case R.id.tv_vertical_viewpager://竖直ViewPager
-                ActivityManagerUtils.openActivity(this, VerticalViewPagerActivity.class);
+                ActivityManagerUtils.openActivity(this, ViewPagerActivity.class);
                 break;
             case R.id.tv_enter_small_window://进入小窗口
                 ActivityManagerUtils.openActivity(this, SuspensionWindowActivity.class);

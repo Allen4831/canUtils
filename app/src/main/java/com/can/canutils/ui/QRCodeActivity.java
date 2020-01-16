@@ -25,7 +25,7 @@ import com.can.mvp.views.BindView;
 
 public class QRCodeActivity extends BaseActivity implements QRCodeView {
 
-    @BindView(id = com.can.mvp.R.id.et_content)
+    @BindView(id = R.id.et_content)
     private EditText et_content;
     @BindView(id = R.id.ll_container)
     private LinearLayout ll_container;

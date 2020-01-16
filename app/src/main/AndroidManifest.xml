@@ -47,9 +47,9 @@
             android:name=".ui.SimulationDataActivity"
             android:screenOrientation="portrait" />
 
-        <!--竖直ViewPager-->
+        <!--ViewPager-->
         <activity
-            android:name=".ui.VerticalViewPagerActivity"
+            android:name=".ui.ViewPagerActivity"
             android:screenOrientation="portrait" />
 
         <!--悬浮窗-->
