@@ -38,8 +38,6 @@ public class NavigationActivity extends BaseActivity {
     @BindView(id = R.id.tv_algorithm, click = true)
     private TextView mTvAlgorithm;
 
-    public NavigationActivity() {
-    }
 
     @Override
     public int getLayoutId() {
