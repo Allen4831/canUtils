@@ -1,15 +1,18 @@
 package com.can.http.ui
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.os.Bundle
+import android.os.IBinder
+import android.os.Message
+import android.os.Messenger
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.can.http.R
+import com.can.http.services.MessengerService
+import com.can.http.utils.TestAsyncTask
 import com.can.mvp.base.BaseActivity
+import java.io.RandomAccessFile
 
 /**
  * Created by CAN on 2019/12/30.
@@ -33,8 +36,11 @@ class UpdateAppActivity : BaseActivity() {
 
     override fun initEvent() {
         mBtnCall?.setOnClickListener {
-            register()
+            sendMessage()
         }
+
+        val testAsyncTask = TestAsyncTask()
+        testAsyncTask.execute("http://www.baidu.com")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +67,42 @@ class UpdateAppActivity : BaseActivity() {
             intent.`package` = packageName
             sendBroadcast(intent)
         }
+    }
+
+    private var mBound = false
+    private var mMessenger: Messenger? = null
+
+    private val mServiceConnected = object : ServiceConnection {
+        override fun onServiceDisconnected(name: ComponentName?) {
+            mBound = false
+            mMessenger = null
+        }
+
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            mMessenger = Messenger(service)
+            mBound = true
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val intent = Intent(this, MessengerService::class.java)
+        bindService(intent, mServiceConnected, Context.BIND_AUTO_CREATE)
+    }
+
+    private fun sendMessage() {
+        if (mBound) {
+            val msg = Message.obtain()
+            mMessenger?.send(msg)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (mBound)
+            unbindService(mServiceConnected)
+        val randomAccessFile = RandomAccessFile("","")
+        randomAccessFile.setLength(1)
     }
 
     override fun onDestroy() {
